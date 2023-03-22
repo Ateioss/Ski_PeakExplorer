@@ -24,21 +24,21 @@ class Station
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-<<<<<<< HEAD
+
     #[ORM\OneToMany(mappedBy: 'station', targetEntity: Piste::class)]
     private Collection $pistes;
 
-    public function __construct()
-    {
-        $this->pistes = new ArrayCollection();
-=======
-    #[ORM\OneToMany(mappedBy: 'station', targetEntity: Remontée::class)]
-    private Collection $remontee;
+    #[ORM\OneToMany(mappedBy: 'station', targetEntity: Remontee::class)]
+    private Collection $remontees;
+
+
 
     public function __construct()
     {
-        $this->remontee = new ArrayCollection();
->>>>>>> e4dceca349dee6fa0e42f775a1a98c5b12f6a006
+
+        $this->pistes = new ArrayCollection();
+        $this->remontees = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -83,7 +83,7 @@ class Station
     }
 
     /**
-<<<<<<< HEAD
+
      * @return Collection<int, Piste>
      */
     public function getPistes(): Collection
@@ -96,40 +96,46 @@ class Station
         if (!$this->pistes->contains($piste)) {
             $this->pistes->add($piste);
             $piste->setStation($this);
-=======
-     * @return Collection<int, Remontée>
-     */
-    public function getRemontee(): Collection
-    {
-        return $this->remontee;
-    }
-
-    public function addRemontee(Remontée $remontee): self
-    {
-        if (!$this->remontee->contains($remontee)) {
-            $this->remontee->add($remontee);
-            $remontee->setStation($this);
->>>>>>> e4dceca349dee6fa0e42f775a1a98c5b12f6a006
         }
-
         return $this;
     }
 
-<<<<<<< HEAD
+
     public function removePiste(Piste $piste): self
     {
         if ($this->pistes->removeElement($piste)) {
             // set the owning side to null (unless already changed)
             if ($piste->getStation() === $this) {
                 $piste->setStation(null);
-=======
-    public function removeRemontee(Remontée $remontee): self
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Remontee>
+     */
+    public function getRemontees(): Collection
     {
-        if ($this->remontee->removeElement($remontee)) {
+        return $this->remontees;
+    }
+
+    public function addRemontee(Remontee $remontee): self
+    {
+        if (!$this->remontees->contains($remontee)) {
+            $this->remontees->add($remontee);
+            $remontee->setStation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemontee(Remontee $remontee): self
+    {
+        if ($this->remontees->removeElement($remontee)) {
             // set the owning side to null (unless already changed)
             if ($remontee->getStation() === $this) {
                 $remontee->setStation(null);
->>>>>>> e4dceca349dee6fa0e42f775a1a98c5b12f6a006
             }
         }
 
