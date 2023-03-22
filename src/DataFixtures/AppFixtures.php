@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
         $Station->setFirstname('Philippe');
         $Station->setLastname('Lafont');
 
-        $Station->setRoles(['ROLE_STATION']);
+        $Station->setRoles(['ROLE_ASTATION']);
 
         $manager->persist($Station);
 
