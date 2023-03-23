@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Station;
+use App\Entity\StationSki;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -47,5 +49,7 @@ class DashboardController extends AbstractDashboardController
         //ajouter un espace
         yield MenuItem::section('Base de données');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
+     //   yield MenuItem::linkToCrud('Stationsowner', 'fas fa-list', StationSki::class);
+
     }
 }
