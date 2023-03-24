@@ -14,8 +14,18 @@
 
         <div>
             <h3>{{ station.name }}</h3>
-            <img src="uploads/images/{{ station .image }}" alt="image de la station" width="200" height="200">
+            <img src="uploads/logo/{{ station.image }}" alt="image de la station" width="200" height="200">
             <p>{{ station.description }}</p>
             <p>{{ station.location }}</p>
         </div>
+    <!-- <a href=""><button> Modifier les information de la station</button></a>-->
+    {% for pistes in piste %}
+        <div>
+            <h3>nom de la piste : {{ pistes.name }}</h3>
+            <p>Difficulté : {{ pistes.difficulte }}</p>
+            <p>Heure d'ouverture: {{ POheure }}</p>
+            <p>Heure de fermeture: {{ PChour}}</p>
+
+        </div>
+    {% endfor %}
 {% endblock %}

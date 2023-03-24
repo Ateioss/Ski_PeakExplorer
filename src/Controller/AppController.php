@@ -31,21 +31,35 @@ class AppController extends AbstractController
     public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
     {
         $time = date("h:m:s");
+
         $pistes = $pisteRepository->findAll();
         $remontees = $remonteeRepository->findAll();
+        $Hpiste =$pisteRepository->findOneBy(array('station' => $id));
+        $Hremontee = $remonteeRepository->findOneBy(array('station' => $id));
+
+        $Popen = $Hpiste->getHoraireOuverture();
+        $POheure = $Popen->format('H:i:s');
+
+        $Pclose = $Hpiste->getHoraireFermeture();
+        $PChour = $Pclose->format('H:i:s');
+        $Ropen = $Hremontee->getOpenTime();
+        $ROhour = $Ropen->format('H:i:s');
+
+        $Rclose = $Hremontee->getCloseTime();
+        $RChour = $Rclose->format('H:i:s');
         foreach ($pistes as $piste) {
-            if ($time >= $piste->getHoraireOuverture()&& $piste->getOuverture() == false && $piste->getBlock() == false) {
+            if ($time >= $POheure&& $piste->getOuverture() == false && $piste->getBlock() == false) {
                 $piste->setOuverture(true);
             }
-            elseif ($time >= $piste->getHoraireFermeture() && $piste->getOuverture() == true && $piste->getBlock() == false){
+            elseif ($time >= $PChour && $piste->getOuverture() == true && $piste->getBlock() == false){
                 $piste->setOuverture(false);
             }
         }
         foreach ($remontees as $remontee) {
-            if ($time >= $remontee->getOpenTime() && $remontee->getOpen() == false && $piste->getBlock() == false){
+            if ($time >= $ROhour && $remontee->getOpen() == false && $piste->getBlock() == false){
                 $remontee->setOpen(true);
             }
-            elseif ($time >= $remontee->getCloseTime() && $remontee->getOpen() == true && $piste->getBlock() == false){
+            elseif ($time >= $RChour && $remontee->getOpen() == true && $piste->getBlock() == false){
                 $remontee->setOpen(false);
             }
         }
@@ -62,12 +76,32 @@ class AppController extends AbstractController
         ]);
     }
     #[Route('/edit/station/{id}', name: 'station_edit')]
-    public function Sedit(StationSkiRepository $stationSkiRepository, $id): Response
+    public function Sedit(StationSkiRepository $stationSkiRepository, $id , PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository): Response
     {
         $station = $stationSkiRepository->findOneBy(array('id'=>$id));
+        $piste =$pisteRepository->findBy(array('station' => $id));
+        $remontee = $remonteeRepository->findBy(array('station' => $id));
+        $Hpiste =$pisteRepository->findOneBy(array('station' => $id));
+        $Hremontee = $remonteeRepository->findOneBy(array('station' => $id));
 
+            $Popen = $Hpiste->getHoraireOuverture();
+            $POheure = $Popen->format('H:i:s');
+
+            $Pclose = $Hpiste->getHoraireFermeture();
+            $PChour = $Pclose->format('H:i:s');
+            $Ropen = $Hremontee->getOpenTime();
+            $ROhour = $Ropen->format('H:i:s');
+
+            $Rclose = $Hremontee->getCloseTime();
+            $RChour = $Rclose->format('H:i:s');
         return $this->render('app/Sedit.html.twig', [
             'station' => $station,
+            'piste' => $piste,
+            'remontee' => $remontee,
+            'POheure' => $POheure,
+            'PChour' => $PChour,
+            'ROhour' => $ROhour,
+            'RChour' => $RChour,
         ]);
     }
     #[Route('/domaine', name: 'app_domaine')]

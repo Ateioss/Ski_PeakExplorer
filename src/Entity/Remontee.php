@@ -20,11 +20,6 @@ class Remontee
     #[ORM\Column]
     private ?bool $open = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $open_time = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $close_time = null;
 
  
     #[ORM\Column]
@@ -32,6 +27,12 @@ class Remontee
 
     #[ORM\ManyToOne(inversedBy: 'remontees')]
     private ?StationSki $station = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $open_time = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $close_time = null;
 
     public function getId(): ?int
     {
@@ -62,6 +63,32 @@ class Remontee
         return $this;
     }
 
+
+
+    public function getBlock(): ?bool
+    {
+        return $this->block;
+    }
+
+    public function setBlock(bool $block): self
+    {
+        $this->block = $block;
+
+        return $this;
+    }
+
+    public function getStation(): ?StationSki
+    {
+        return $this->station;
+    }
+
+    public function setStation(?StationSki $station): self
+    {
+        $this->station = $station;
+
+        return $this;
+    }
+
     public function getOpenTime(): ?\DateTimeInterface
     {
         return $this->open_time;
@@ -82,31 +109,6 @@ class Remontee
     public function setCloseTime(\DateTimeInterface $close_time): self
     {
         $this->close_time = $close_time;
-
-        return $this;
-    }
-
-
-    public function isBlock(): ?bool
-    {
-        return $this->block;
-    }
-
-    public function setBlock(bool $block): self
-    {
-        $this->block = $block;
-
-        return $this;
-    }
-
-    public function getStation(): ?StationSki
-    {
-        return $this->station;
-    }
-
-    public function setStation(?StationSki $station): self
-    {
-        $this->station = $station;
 
         return $this;
     }

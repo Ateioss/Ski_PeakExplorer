@@ -11,6 +11,7 @@
         et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
 
     </p>
+    <button><a href="{{ path('app_stationski_type') }}">Ajouter une station</a></button>
     {% for stations in station  %}
         <div>
             <h3>{{ stations.name }}</h3>
