@@ -15,7 +15,8 @@
         <div>
             <h3>{{ domaines.name }}</h3>
             <img src="uploads/images/{{ domaines.image }}" alt="image de la station" width="200" height="200">
-            <a href="{{ path('station_edit', {'id': domaines.id}) }}">voir la station</a>
+
+            <a href="{{ path('app_edit', {'id': domaines.id}) }}">voir la station</a>
         </div>
 
     {% endfor %}

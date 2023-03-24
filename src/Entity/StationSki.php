@@ -37,7 +37,7 @@ class StationSki
     #[ORM\OneToMany(mappedBy: 'station', targetEntity: Remontee::class)]
     private Collection $remontees;
 
-    #[ORM\ManyToOne(inversedBy: 'stationSkis')]
+        #[ORM\ManyToOne(inversedBy: 'stationSkis')]
     private ?Gdomaine $domain = null;
 
     public function __construct()

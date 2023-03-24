@@ -36,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    private ?Defis $defis = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -132,5 +135,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     function __toString()
     {
         return $this->email;
+    }
+
+    public function getDefis(): ?Defis
+    {
+        return $this->defis;
+    }
+
+    public function setDefis(?Defis $defis): self
+    {
+        $this->defis = $defis;
+
+        return $this;
     }
 }

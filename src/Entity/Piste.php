@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PisteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,14 @@ class Piste
 
     #[ORM\ManyToOne(inversedBy: 'pistes')]
     private ?StationSki $station = null;
+
+    #[ORM\ManyToMany(targetEntity: Defis::class, mappedBy: 'piste')]
+    private Collection $defis;
+
+    public function __construct()
+    {
+        $this->defis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,7 +105,7 @@ class Piste
 
 
 
-    public function isBlock(): ?bool
+    public function getBlock(): ?bool
     {
         return $this->block;
     }
@@ -127,6 +137,33 @@ class Piste
     public function setStation(?StationSki $station): self
     {
         $this->station = $station;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Defis>
+     */
+    public function getDefis(): Collection
+    {
+        return $this->defis;
+    }
+
+    public function addDefi(Defis $defi): self
+    {
+        if (!$this->defis->contains($defi)) {
+            $this->defis->add($defi);
+            $defi->addPiste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDefi(Defis $defi): self
+    {
+        if ($this->defis->removeElement($defi)) {
+            $defi->removePiste($this);
+        }
 
         return $this;
     }
