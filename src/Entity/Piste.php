@@ -32,6 +32,9 @@ class Piste
     #[ORM\ManyToOne(inversedBy: 'pistes')]
     private ?station $station = null;
 
+    #[ORM\Column]
+    private ?bool $block = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,7 +64,7 @@ class Piste
         return $this;
     }
 
-    public function isOuverture(): ?bool
+    public function getOuverture(): ?bool
     {
         return $this->ouverture;
     }
@@ -105,6 +108,18 @@ class Piste
     public function setStation(?station $station): self
     {
         $this->station = $station;
+
+        return $this;
+    }
+
+    public function isBlock(): ?bool
+    {
+        return $this->block;
+    }
+
+    public function setBlock(bool $block): self
+    {
+        $this->block = $block;
 
         return $this;
     }

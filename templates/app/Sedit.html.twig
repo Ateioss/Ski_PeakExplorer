@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+    <h1>les Stations de skis</h1>
+    <p>
+        Bienvenue sur la page d'édition des stations de ski,
+        <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
+
+        et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
+
+    </p>
+    {% for stations in station  %}
+        <div>
+            <h3>{{ stations.nom }}</h3>
+            <img src="{{ asset('uploads/images/' ~ stations.image) }}" alt="image de la station" width="200" height="200">
+            <a href="{{ path('station_edit', {'id': stations.id}) }}">voir la station</a>
+        </div>
+
+    {% endfor %}
+{% endblock %}

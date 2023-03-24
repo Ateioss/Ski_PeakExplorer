@@ -29,6 +29,9 @@ class Remontee
     #[ORM\ManyToOne(inversedBy: 'remontees')]
     private ?Station $station = null;
 
+    #[ORM\Column]
+    private ?bool $block = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,7 +49,7 @@ class Remontee
         return $this;
     }
 
-    public function isOpen(): ?bool
+    public function getOpen(): ?bool
     {
         return $this->open;
     }
@@ -90,6 +93,18 @@ class Remontee
     public function setStation(?Station $station): self
     {
         $this->station = $station;
+
+        return $this;
+    }
+
+    public function isBlock(): ?bool
+    {
+        return $this->block;
+    }
+
+    public function setBlock(bool $block): self
+    {
+        $this->block = $block;
 
         return $this;
     }
