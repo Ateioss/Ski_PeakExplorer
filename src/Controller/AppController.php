@@ -55,7 +55,7 @@ class AppController extends AbstractController
     #[Route('/edit{id}', name: 'app_edit')]
     public function edit(StationSkiRepository $stationSkiRepository, $id): Response
     {
-        $station = $stationSkiRepository->findBy(array('domaine' => $id));
+        $station = $stationSkiRepository->findBy(array('domain' => $id));
         return $this->render('app/edit.html.twig', [
             'station' => $station,
         ]);
@@ -83,6 +83,7 @@ class AppController extends AbstractController
 
         return $this->render('app/domaine.html.twig', [
             'domaine' => $domaine,
+            'admin' => false
         ]);
     }
 
@@ -94,9 +95,6 @@ class AppController extends AbstractController
         $logo = $_POST['logo'];
         $domaine->setName($name);
         $domaine->setImage($logo);
-        $filesystem = new Filesystem();
-        $filename = $logo->getClientOriginalName();
-        $filesystem->copy($logo->getPathname(), 'uploads/logo/' . $filename);
         $managerRegistry->getManager()->persist($domaine);
         $managerRegistry->getManager()->flush();
         return $this->redirectToRoute('app_domaine');
