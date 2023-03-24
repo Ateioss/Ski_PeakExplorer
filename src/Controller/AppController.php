@@ -24,7 +24,7 @@ class AppController extends AbstractController
     public function piste(Request $request, PisteRepository $pisteRepository): Response
     {
         $pistes = $pisteRepository->findAll();
-        
+
         return $this->render('app/piste.html.twig', [
             'controller_name' => 'AppController',
             'pistes' => $pistes,

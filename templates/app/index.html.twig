@@ -11,6 +11,12 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
+    {% for notification in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ notification }}
+        </div>
+    {% endfor %}
+
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/laragon/www/Ski_PeakExplorer/src/Controller/AppController.php'|file_link(0) }}">src/Controller/AppController.php</a></code></li>
