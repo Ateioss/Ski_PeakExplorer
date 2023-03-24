@@ -26,7 +26,7 @@ class Remontee
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $close_time = null;
 
- 
+
     #[ORM\Column]
     private ?bool $block = null;
 

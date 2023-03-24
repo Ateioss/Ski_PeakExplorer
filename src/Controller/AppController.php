@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Gdomaine;
-use App\Entity\Station;
-use App\Repository\GdomaineRepository;
+
 use App\Repository\PisteRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Gdomaine;
+use App\Repository\GdomaineRepository;
 use App\Repository\RemonteeRepository;
-use App\Repository\StationRepository;
 use App\Repository\StationSkiRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +26,17 @@ class AppController extends AbstractController
         ]);
     }
 
+
+    #[Route('/piste', name: 'app_piste')]
+    public function piste(Request $request, PisteRepository $pisteRepository): Response
+    {
+        $pistes = $pisteRepository->findAll();
+
+        return $this->render('app/piste.html.twig', [
+            'controller_name' => 'AppController',
+            'pistes' => $pistes,
+        ]);
+    }
 
     #[Route('/automatic{id}', name: 'app_auto')]
     public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
@@ -52,6 +63,7 @@ class AppController extends AbstractController
 
         return $this->redirectToRoute('app_edit', ['id' => $id]);
     }
+
     #[Route('/edit{id}', name: 'app_edit')]
     public function edit(StationSkiRepository $stationSkiRepository, $id): Response
     {
@@ -61,6 +73,7 @@ class AppController extends AbstractController
             'id' => $id,
         ]);
     }
+
     #[Route('/edit/station/{id}', name: 'station_edit')]
     public function Sedit(StationSkiRepository $stationSkiRepository, $id): Response
     {
@@ -70,6 +83,7 @@ class AppController extends AbstractController
             'station' => $station,
         ]);
     }
+
     #[Route('/domaine', name: 'app_domaine')]
     public function domaine(GdomaineRepository $gdomaineRepository): Response
     {
@@ -110,6 +124,5 @@ class AppController extends AbstractController
             'domaine' => 'coucou',
         ]);
     }
-
 
 }

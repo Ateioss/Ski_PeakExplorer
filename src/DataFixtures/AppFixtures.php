@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\Piste;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -11,6 +12,9 @@ class AppFixtures extends Fixture
 {
     public function __construct(private UserPasswordHasherInterface $passwordHasher){}
 
+    /**
+     * @throws \Exception
+     */
     public function load(ObjectManager $manager): void
     {
         //Créons un utilisateur
@@ -39,19 +43,34 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-        //Créons un commerçant
+        // créer des pistes
+        for ($i = 1; $i <= 3; $i++) {
+            $piste = new Piste();
+            $piste->setName('Piste ' . $i);
+            $difficulte = rand(1, 3);
+            switch ($difficulte) {
+                case 1:
+                    $piste->setDifficulte('Facile');
+                    break;
+                case 2:
+                    $piste->setDifficulte('Moyen');
+                    break;
+                case 3:
+                    $piste->setDifficulte('Difficile');
+                    break;
+            }
+            $piste->setOuverture(rand(0, 1));
 
-        $Station = new User();
-        $Station->setEmail('philippe.lafont@gmail.com');
-        $Station->setPassword($this->passwordHasher->hashPassword($Station, 'password'));
-        $Station->setFirstname('Philippe');
-        $Station->setLastname('Lafont');
+            $piste->setBlock(0);
 
-        $Station->setRoles(['ROLE_ASTATION']);
+            $ouverture = new \DateTime('8:00');
+            $fermeture = new \DateTime('19:00');
 
-        $manager->persist($Station);
+            $piste->setHoraireOuverture($ouverture);
+            $piste->setHoraireFermeture($fermeture);
 
-        $manager->flush();
+            $manager->persist($piste);
+        }
 
         $manager->flush();
 

@@ -63,9 +63,6 @@ class StationSki
         return $this;
     }
 
-
-
-
     public function getLocation(): ?string
     {
         return $this->location;
