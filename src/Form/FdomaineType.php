@@ -16,7 +16,7 @@ class FdomaineType extends AbstractType
         $builder
             ->add('name')
             ->add('image', FileType::class, [
-                'label' => 'Image (fichier image)',
+                'label' => 'Image ',
                 'required' => false,
                 'data_class' => null,
             ])

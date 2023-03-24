@@ -14,7 +14,6 @@ class StationskiTypeController extends AbstractController
 {
     #[Route('/stationski/type', name: 'app_stationski_type')]
 
-
     public function index(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $notification = null;
@@ -58,9 +57,6 @@ class StationskiTypeController extends AbstractController
 
             return $this->redirectToRoute('app_index');
         }
-
-
-
         return $this->render('stationski_type/index.html.twig', [
             'form' => $form->createView(),
         ]);
