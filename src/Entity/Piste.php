@@ -25,11 +25,6 @@ class Piste
     #[ORM\Column]
     private ?bool $ouverture = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $horaire_ouverture = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $horaire_fermeture = null;
 
     #[ORM\Column]
     private ?bool $block = null;
@@ -42,6 +37,12 @@ class Piste
 
     #[ORM\ManyToMany(targetEntity: Defis::class, mappedBy: 'piste')]
     private Collection $defis;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $horaire_ouverture = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $horaire_fermeture = null;
 
     public function __construct()
     {
@@ -89,29 +90,7 @@ class Piste
         return $this;
     }
 
-    public function getHoraireOuverture(): ?\DateTimeInterface
-    {
-        return $this->horaire_ouverture;
-    }
 
-    public function setHoraireOuverture(\DateTimeInterface $horaire_ouverture): self
-    {
-        $this->horaire_ouverture = $horaire_ouverture;
-
-        return $this;
-    }
-
-    public function getHoraireFermeture(): ?\DateTimeInterface
-    {
-        return $this->horaire_fermeture;
-    }
-
-    public function setHoraireFermeture(\DateTimeInterface $horaire_fermeture): self
-    {
-        $this->horaire_fermeture = $horaire_fermeture;
-
-        return $this;
-    }
 
 
     public function isBlock(): ?bool
@@ -180,6 +159,34 @@ class Piste
         if ($this->defis->removeElement($defi)) {
             $defi->removePiste($this);
         }
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getHoraireOuverture(): ?\DateTimeInterface
+    {
+        return $this->horaire_ouverture;
+    }
+
+    public function setHoraireOuverture(\DateTimeInterface $horaire_ouverture): self
+    {
+        $this->horaire_ouverture = $horaire_ouverture;
+
+        return $this;
+    }
+
+    public function getHoraireFermeture(): ?\DateTimeInterface
+    {
+        return $this->horaire_fermeture;
+    }
+
+    public function setHoraireFermeture(\DateTimeInterface $horaire_fermeture): self
+    {
+        $this->horaire_fermeture = $horaire_fermeture;
+
         return $this;
     }
 }
