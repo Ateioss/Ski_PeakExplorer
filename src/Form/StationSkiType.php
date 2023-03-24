@@ -21,15 +21,6 @@ class StationSkiType extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Image (fichier image)',
                 'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/*',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image',
-                    ])
-                ],
                 'data_class' => null,
             ])
             ->add('submit', SubmitType::class)
