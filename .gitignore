@@ -8,6 +8,8 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+!public/uploads
+!public/uploads/.gitkeep
 
 ###> phpunit/phpunit ###
 /phpunit.xml

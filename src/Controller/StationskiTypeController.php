@@ -13,21 +13,7 @@ class StationskiTypeController extends AbstractController
 {
     #[Route('/stationski/type', name: 'app_stationski_type')]
 
-    /*public static function getEntityFqcn(): string
-    {
-        return StationSkiType::class;
-    }
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
-            ImageField::new('image')
-                ->setBasePath('uploads')
-                ->setUploadDir('public/uploads')
-                ->setUploadedFileNamePattern('[randomhash].[extension]'),
-        ];
-    }*/
+
     public function index(Request $request, EntityManagerInterface $em): Response
     {
         $notification = null;
@@ -36,7 +22,18 @@ class StationskiTypeController extends AbstractController
         $form = $this->createForm(StationSkiType::class, $stationSki);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /*$uploadedFile = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename,*/
+
             $em->persist($stationSki);
             $em->flush();
 
