@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PisteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,14 @@ class Piste
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fermeture_expectionelle = null;
+
+    #[ORM\ManyToMany(targetEntity: Defis::class, mappedBy: 'piste')]
+    private Collection $defis;
+
+    public function __construct()
+    {
+        $this->defis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,7 +113,15 @@ class Piste
         return $this;
     }
 
+
     public function isBlock(): ?bool
+    {
+        return $this->block;
+    }
+
+
+    public function getBlock(): ?bool
+
     {
         return $this->block;
     }
@@ -127,6 +145,7 @@ class Piste
         return $this;
     }
 
+
     public function getFermetureExpectionelle(): ?string
     {
         return $this->fermeture_expectionelle;
@@ -135,7 +154,32 @@ class Piste
     public function setFermetureExpectionelle(?string $fermeture_expectionelle): self
     {
         $this->fermeture_expectionelle = $fermeture_expectionelle;
+        return $this;
+    }
 
+    /**
+     * @return Collection<int, Defis>
+     */
+    public function getDefis(): Collection
+    {
+        return $this->defis;
+    }
+
+    public function addDefi(Defis $defi): self
+    {
+        if (!$this->defis->contains($defi)) {
+            $this->defis->add($defi);
+            $defi->addPiste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDefi(Defis $defi): self
+    {
+        if ($this->defis->removeElement($defi)) {
+            $defi->removePiste($this);
+        }
         return $this;
     }
 }

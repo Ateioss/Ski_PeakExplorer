@@ -3,15 +3,12 @@
 namespace App\Controller;
 
 
-use App\Repository\Repository;
 use App\Repository\PisteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Gdomaine;
-use App\Entity\Station;
 use App\Repository\GdomaineRepository;
 use App\Repository\RemonteeRepository;
-use App\Repository\StationRepository;
 use App\Repository\StationSkiRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Filesystem\Filesystem;
@@ -41,47 +38,52 @@ class AppController extends AbstractController
         ]);
     }
 
-    #[Route('/automatic', name: 'app_auto')]
-    public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository): Response
+    #[Route('/automatic{id}', name: 'app_auto')]
+    public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
     {
         $time = date("h:m:s");
         $pistes = $pisteRepository->findAll();
         $remontees = $remonteeRepository->findAll();
         foreach ($pistes as $piste) {
-            if ($time >= $piste->getHoraireOuverture()&& $piste->getOuverture() == false){
+            if ($time >= $piste->getHoraireOuverture()&& $piste->getOuverture() == false && $piste->getBlock() == false) {
                 $piste->setOuverture(true);
             }
-            elseif ($time >= $piste->getHoraireFermeture() && $piste->getOuverture() == true){
+            elseif ($time >= $piste->getHoraireFermeture() && $piste->getOuverture() == true && $piste->getBlock() == false){
                 $piste->setOuverture(false);
             }
         }
         foreach ($remontees as $remontee) {
-            if ($time >= $remontee->getOpenTime() && $remontee->getOpen() == false){
+            if ($time >= $remontee->getOpenTime() && $remontee->getOpen() == false && $piste->getBlock() == false){
                 $remontee->setOpen(true);
             }
-            elseif ($time >= $remontee->getCloseTime() && $remontee->getOpen() == true){
+            elseif ($time >= $remontee->getCloseTime() && $remontee->getOpen() == true && $piste->getBlock() == false){
                 $remontee->setOpen(false);
             }
         }
 
-        return $this->json("ok");
+        return $this->redirectToRoute('app_edit', ['id' => $id]);
     }
+
     #[Route('/edit{id}', name: 'app_edit')]
     public function edit(StationSkiRepository $stationSkiRepository, $id): Response
     {
-        $station = $stationSkiRepository->findBy(array('domaine' => $id));
+        $station = $stationSkiRepository->findBy(array('domain' => $id));
         return $this->render('app/edit.html.twig', [
             'station' => $station,
+            'id' => $id,
         ]);
     }
+
     #[Route('/edit/station/{id}', name: 'station_edit')]
     public function Sedit(StationSkiRepository $stationSkiRepository, $id): Response
     {
-        $station = $stationSkiRepository->findOneBy($id);
+        $station = $stationSkiRepository->findOneBy(array('id'=>$id));
+
         return $this->render('app/Sedit.html.twig', [
             'station' => $station,
         ]);
     }
+
     #[Route('/domaine', name: 'app_domaine')]
     public function domaine(GdomaineRepository $gdomaineRepository): Response
     {
@@ -97,6 +99,7 @@ class AppController extends AbstractController
 
         return $this->render('app/domaine.html.twig', [
             'domaine' => $domaine,
+            'admin' => false
         ]);
     }
 
@@ -108,9 +111,6 @@ class AppController extends AbstractController
         $logo = $_POST['logo'];
         $domaine->setName($name);
         $domaine->setImage($logo);
-        $filesystem = new Filesystem();
-        $filename = $logo->getClientOriginalName();
-        $filesystem->copy($logo->getPathname(), 'uploads/logo/' . $filename);
         $managerRegistry->getManager()->persist($domaine);
         $managerRegistry->getManager()->flush();
         return $this->redirectToRoute('app_domaine');
