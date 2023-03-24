@@ -94,9 +94,6 @@ class AppController extends AbstractController
         $logo = $_POST['logo'];
         $domaine->setName($name);
         $domaine->setImage($logo);
-        $filesystem = new Filesystem();
-        $filename = $logo->getClientOriginalName();
-        $filesystem->copy($logo->getPathname(), 'uploads/logo/' . $filename);
         $managerRegistry->getManager()->persist($domaine);
         $managerRegistry->getManager()->flush();
         return $this->redirectToRoute('app_domaine');

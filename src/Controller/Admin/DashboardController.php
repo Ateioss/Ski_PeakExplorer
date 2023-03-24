@@ -3,10 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Remontee;
-=======
 use App\Entity\Station;
 use App\Entity\StationSki;
->>>>>>> 60ccd83fce34ab8f8de8e5249778f8e4b1513ef6
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -54,7 +52,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Base de données');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Remontee', 'fas fa-list', Remontee::class);
-     //   yield MenuItem::linkToCrud('Stationsowner', 'fas fa-list', StationSki::class);
 
     }
 }

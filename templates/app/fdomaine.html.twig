@@ -9,12 +9,11 @@
 
     </p>
 
-    <form >
+    <form method="post" action="{{ path ('app_CDomaine') }}">
         <label for="domaine">Choisissez un nom de domaine</label>
         <input name="name" type="text">
         <br>
         <label for="logo">Choisissez un logo</label>
-
         <input type="file" name="logo">
         <br>
         <input type="submit" value="Envoyer">
