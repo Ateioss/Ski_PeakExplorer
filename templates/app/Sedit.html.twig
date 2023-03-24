@@ -7,15 +7,12 @@
     <p>
         Bienvenue sur la page d'édition des stations de ski,
         <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
-
         et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
 
     </p>
-
-
         <div>
             <h3>{{ station.name }}</h3>
-            <img src="uploads/images/{{ station .image }}" alt="image de la station" width="200" height="200">
+            <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
             <p>{{ station.description }}</p>
             <p>{{ station.location }}</p>
         </div>

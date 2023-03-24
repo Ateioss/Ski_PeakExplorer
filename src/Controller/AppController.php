@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Form\FdomaineType;
 use App\Repository\PisteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +11,8 @@ use App\Entity\Gdomaine;
 use App\Repository\GdomaineRepository;
 use App\Repository\RemonteeRepository;
 use App\Repository\StationSkiRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
@@ -117,12 +120,43 @@ class AppController extends AbstractController
     }
 
     #[Route('/Fdomaine', name: 'domaine_new')]
-    public function Ndomaine(ManagerRegistry $managerRegistry): Response
+    public function Ndomaine(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
 
+        $fdomaine = new Gdomaine();
+        $form = $this->createForm(FdomaineType::class, $fdomaine);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {$imagefile = $form->get('image')->getData();
+
+            if ($imagefile) {
+                $originalFilename = pathinfo($imagefile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imagefile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imagefile->move(
+                        $this->getParameter('image_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $fdomaine->setImage($newFilename);
+            }
+
+            $em->persist($fdomaine);
+            $em->flush();
+
+            return $this->redirectToRoute('app_domaine');
+        }
+
         return $this->render('app/fdomaine.html.twig', [
-            'domaine' => 'coucou',
+            'form' => $form->createView(),
         ]);
     }
-
 }
