@@ -27,7 +27,7 @@ class Remontee
     private ?\DateTimeInterface $close_time = null;
 
     #[ORM\ManyToOne(inversedBy: 'remontees')]
-    private ?Station $station = null;
+    private ?station $station = null;
 
     public function getId(): ?int
     {
@@ -82,12 +82,12 @@ class Remontee
         return $this;
     }
 
-    public function getStation(): ?Station
+    public function getStation(): ?station
     {
         return $this->station;
     }
 
-    public function setStation(?Station $station): self
+    public function setStation(?station $station): self
     {
         $this->station = $station;
 

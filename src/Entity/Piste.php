@@ -18,7 +18,7 @@ class Piste
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $difficulté = null;
+    private ?string $difficulte = null;
 
     #[ORM\Column]
     private ?bool $ouverture = null;
@@ -31,6 +31,9 @@ class Piste
 
     #[ORM\ManyToOne(inversedBy: 'pistes')]
     private ?station $station = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fermeture_expectionelle = null;
 
     public function getId(): ?int
     {
@@ -49,14 +52,14 @@ class Piste
         return $this;
     }
 
-    public function getDifficulté(): ?string
+    public function getDifficulte(): ?string
     {
-        return $this->difficulté;
+        return $this->difficulte;
     }
 
-    public function setDifficulté(string $difficulté): self
+    public function setDifficulte(string $difficulte): self
     {
-        $this->difficulté = $difficulté;
+        $this->difficulte = $difficulte;
 
         return $this;
     }
@@ -105,6 +108,18 @@ class Piste
     public function setStation(?station $station): self
     {
         $this->station = $station;
+
+        return $this;
+    }
+
+    public function getFermetureExpectionelle(): ?string
+    {
+        return $this->fermeture_expectionelle;
+    }
+
+    public function setFermetureExpectionelle(?string $fermeture_expectionelle): self
+    {
+        $this->fermeture_expectionelle = $fermeture_expectionelle;
 
         return $this;
     }
