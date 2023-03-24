@@ -95,7 +95,7 @@ class Piste
 
 
 
-    public function isBlock(): ?bool
+    public function getBlock(): ?bool
     {
         return $this->block;
     }

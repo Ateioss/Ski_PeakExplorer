@@ -27,30 +27,30 @@ class AppController extends AbstractController
     }
 
 
-    #[Route('/automatic', name: 'app_auto')]
-    public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository): Response
+    #[Route('/automatic{id}', name: 'app_auto')]
+    public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
     {
         $time = date("h:m:s");
         $pistes = $pisteRepository->findAll();
         $remontees = $remonteeRepository->findAll();
         foreach ($pistes as $piste) {
-            if ($time >= $piste->getHoraireOuverture()&& $piste->getOuverture() == false){
+            if ($time >= $piste->getHoraireOuverture()&& $piste->getOuverture() == false && $piste->getBlock() == false) {
                 $piste->setOuverture(true);
             }
-            elseif ($time >= $piste->getHoraireFermeture() && $piste->getOuverture() == true){
+            elseif ($time >= $piste->getHoraireFermeture() && $piste->getOuverture() == true && $piste->getBlock() == false){
                 $piste->setOuverture(false);
             }
         }
         foreach ($remontees as $remontee) {
-            if ($time >= $remontee->getOpenTime() && $remontee->getOpen() == false){
+            if ($time >= $remontee->getOpenTime() && $remontee->getOpen() == false && $piste->getBlock() == false){
                 $remontee->setOpen(true);
             }
-            elseif ($time >= $remontee->getCloseTime() && $remontee->getOpen() == true){
+            elseif ($time >= $remontee->getCloseTime() && $remontee->getOpen() == true && $piste->getBlock() == false){
                 $remontee->setOpen(false);
             }
         }
 
-        return $this->json("ok");
+        return $this->redirectToRoute('app_edit', ['id' => $id]);
     }
     #[Route('/edit{id}', name: 'app_edit')]
     public function edit(StationSkiRepository $stationSkiRepository, $id): Response
@@ -58,12 +58,14 @@ class AppController extends AbstractController
         $station = $stationSkiRepository->findBy(array('domain' => $id));
         return $this->render('app/edit.html.twig', [
             'station' => $station,
+            'id' => $id,
         ]);
     }
     #[Route('/edit/station/{id}', name: 'station_edit')]
     public function Sedit(StationSkiRepository $stationSkiRepository, $id): Response
     {
-        $station = $stationSkiRepository->findOneBy($id);
+        $station = $stationSkiRepository->findOneBy(array('id'=>$id));
+
         return $this->render('app/Sedit.html.twig', [
             'station' => $station,
         ]);
