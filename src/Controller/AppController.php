@@ -2,11 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Gdomaine;
 use App\Entity\Station;
+use App\Repository\GdomaineRepository;
 use App\Repository\PisteRepository;
 use App\Repository\RemonteeRepository;
 use App\Repository\StationRepository;
+use App\Repository\StationSkiRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -47,21 +52,64 @@ class AppController extends AbstractController
 
         return $this->json("ok");
     }
-    #[Route('/edit', name: 'app_edit')]
-    public function edit(StationRepository $stationRepository): Response
+    #[Route('/edit{id}', name: 'app_edit')]
+    public function edit(StationSkiRepository $stationSkiRepository, $id): Response
     {
-        $station = $stationRepository->findAll();
+        $station = $stationSkiRepository->findBy(array('domaine' => $id));
         return $this->render('app/edit.html.twig', [
             'station' => $station,
         ]);
     }
     #[Route('/edit/station/{id}', name: 'station_edit')]
-    public function Sedit(StationRepository $stationRepository, $id): Response
+    public function Sedit(StationSkiRepository $stationSkiRepository, $id): Response
     {
-        $station = $stationRepository->findOneBy($id);
-        return $this->render('app/S edit.html.twig', [
+        $station = $stationSkiRepository->findOneBy($id);
+        return $this->render('app/Sedit.html.twig', [
             'station' => $station,
         ]);
     }
+    #[Route('/domaine', name: 'app_domaine')]
+    public function domaine(GdomaineRepository $gdomaineRepository): Response
+    {
+        $domaine = $gdomaineRepository->findAll();
+        $user = $this->getUser();
+        $Ruser = $this->getUser()->getRoles()[0];
+        if ($Ruser == "ROLE_ADMIN"){
+            return $this->render('app/domaine.html.twig', [
+                'domaine' => $domaine,
+                'admin' => true
+            ]);
+        }
+
+        return $this->render('app/domaine.html.twig', [
+            'domaine' => $domaine,
+        ]);
+    }
+
+    #[Route('/Cdomaine', name: 'app_CDomaine', methods: ['GET', 'POST'])]
+    public function Cdomaine(ManagerRegistry $managerRegistry): Response
+    {
+        $domaine = new Gdomaine();
+        $name = $_POST['name'];
+        $logo = $_POST['logo'];
+        $domaine->setName($name);
+        $domaine->setImage($logo);
+        $filesystem = new Filesystem();
+        $filename = $logo->getClientOriginalName();
+        $filesystem->copy($logo->getPathname(), 'uploads/logo/' . $filename);
+        $managerRegistry->getManager()->persist($domaine);
+        $managerRegistry->getManager()->flush();
+        return $this->redirectToRoute('app_domaine');
+    }
+
+    #[Route('/Fdomaine', name: 'domaine_new')]
+    public function Ndomaine(ManagerRegistry $managerRegistry): Response
+    {
+
+        return $this->render('app/fdomaine.html.twig', [
+            'domaine' => 'coucou',
+        ]);
+    }
+
 
 }

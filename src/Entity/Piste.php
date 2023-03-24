@@ -17,8 +17,7 @@ class Piste
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $difficulté = null;
+
 
     #[ORM\Column]
     private ?bool $ouverture = null;
@@ -29,11 +28,15 @@ class Piste
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $horaire_fermeture = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pistes')]
-    private ?station $station = null;
 
     #[ORM\Column]
     private ?bool $block = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $difficulte = null;
+
+    #[ORM\ManyToOne(inversedBy: 'pistes')]
+    private ?StationSki $station = null;
 
     public function getId(): ?int
     {
@@ -52,17 +55,7 @@ class Piste
         return $this;
     }
 
-    public function getDifficulté(): ?string
-    {
-        return $this->difficulté;
-    }
 
-    public function setDifficulté(string $difficulté): self
-    {
-        $this->difficulté = $difficulté;
-
-        return $this;
-    }
 
     public function getOuverture(): ?bool
     {
@@ -100,17 +93,7 @@ class Piste
         return $this;
     }
 
-    public function getStation(): ?station
-    {
-        return $this->station;
-    }
 
-    public function setStation(?station $station): self
-    {
-        $this->station = $station;
-
-        return $this;
-    }
 
     public function isBlock(): ?bool
     {
@@ -120,6 +103,30 @@ class Piste
     public function setBlock(bool $block): self
     {
         $this->block = $block;
+
+        return $this;
+    }
+
+    public function getDifficulte(): ?string
+    {
+        return $this->difficulte;
+    }
+
+    public function setDifficulte(string $difficulte): self
+    {
+        $this->difficulte = $difficulte;
+
+        return $this;
+    }
+
+    public function getStation(): ?StationSki
+    {
+        return $this->station;
+    }
+
+    public function setStation(?StationSki $station): self
+    {
+        $this->station = $station;
 
         return $this;
     }

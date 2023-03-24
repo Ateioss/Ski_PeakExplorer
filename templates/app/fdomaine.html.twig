@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+    <h1>les Domaines de skis</h1>
+    <p>
+        Bienvenue sur la page des domaines de skis
+
+    </p>
+
+    <form >
+        <label for="domaine">Choisissez un nom de domaine</label>
+        <input name="name" type="text">
+        <br>
+        <label for="logo">Choisissez un logo</label>
+
+        <input type="file" name="logo">
+        <br>
+        <input type="submit" value="Envoyer">
+
+
+    </form>
+{% endblock %}
