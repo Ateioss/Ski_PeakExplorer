@@ -1,20 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AppController!{% endblock %}
+{% block title %}Ski Peak Explorer{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <h1>Liste des pistes</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/Ski_PeakExplorer/src/Controller/AppController.php'|file_link(0) }}">src/Controller/AppController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/Ski_PeakExplorer/templates/app/index.html.twig'|file_link(0) }}">templates/app/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Difficulté</th>
+                <th>Statut</th>
+                <th>Horaire d'ouverture</th>
+                <th>Horaire de fermeture</th>
+                <th>fermeture expectionelle</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for piste in pistes %}
+                <tr>
+                    <td>{{ piste.name }}</td>
+                    <td>{{ piste.difficulte }}</td>
+                    <td>{% if piste.ouverture %} Ouverte {% else %} Fermée {% endif %}</td>
+                    <td>{{ piste.horaireOuverture|date('H:i') }}</td>
+                    <td>{{ piste.horaireFermeture|date('H:i') }}</td>
+                    <td>{{ piste.fermetureexpectionelle }}</td>
+                    <td>{{ piste.block }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
+
+
+

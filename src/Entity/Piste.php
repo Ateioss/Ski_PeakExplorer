@@ -19,21 +19,21 @@ class Piste
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-
+    #[ORM\Column(length: 255)]
+    private ?string $difficulte = null;
 
     #[ORM\Column]
     private ?bool $ouverture = null;
 
 
-
     #[ORM\Column]
     private ?bool $block = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $difficulte = null;
-
     #[ORM\ManyToOne(inversedBy: 'pistes')]
     private ?StationSki $station = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fermeture_expectionelle = null;
 
     #[ORM\ManyToMany(targetEntity: Defis::class, mappedBy: 'piste')]
     private Collection $defis;
@@ -66,7 +66,17 @@ class Piste
         return $this;
     }
 
+    public function getDifficulte(): ?string
+    {
+        return $this->difficulte;
+    }
 
+    public function setDifficulte(string $difficulte): self
+    {
+        $this->difficulte = $difficulte;
+
+        return $this;
+    }
 
     public function getOuverture(): ?bool
     {
@@ -83,8 +93,14 @@ class Piste
 
 
 
+    public function isBlock(): ?bool
+    {
+        return $this->block;
+    }
+
 
     public function getBlock(): ?bool
+
     {
         return $this->block;
     }
@@ -92,18 +108,6 @@ class Piste
     public function setBlock(bool $block): self
     {
         $this->block = $block;
-
-        return $this;
-    }
-
-    public function getDifficulte(): ?string
-    {
-        return $this->difficulte;
-    }
-
-    public function setDifficulte(string $difficulte): self
-    {
-        $this->difficulte = $difficulte;
 
         return $this;
     }
@@ -117,6 +121,18 @@ class Piste
     {
         $this->station = $station;
 
+        return $this;
+    }
+
+
+    public function getFermetureExpectionelle(): ?string
+    {
+        return $this->fermeture_expectionelle;
+    }
+
+    public function setFermetureExpectionelle(?string $fermeture_expectionelle): self
+    {
+        $this->fermeture_expectionelle = $fermeture_expectionelle;
         return $this;
     }
 
@@ -143,7 +159,6 @@ class Piste
         if ($this->defis->removeElement($defi)) {
             $defi->removePiste($this);
         }
-
         return $this;
     }
     public function __toString()

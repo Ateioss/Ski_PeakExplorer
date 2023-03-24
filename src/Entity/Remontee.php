@@ -21,7 +21,7 @@ class Remontee
     private ?bool $open = null;
 
 
- 
+
     #[ORM\Column]
     private ?bool $block = null;
 

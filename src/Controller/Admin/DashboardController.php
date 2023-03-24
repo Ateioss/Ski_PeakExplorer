@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Piste;
 use App\Entity\Remontee;
+
 
 use App\Entity\Station;
 use App\Entity\StationSki;
@@ -52,7 +54,8 @@ class DashboardController extends AbstractDashboardController
         //ajouter un espace
         yield MenuItem::section('Base de données');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
+        yield MenuItem::linkToCrud('Piste', 'fas fa-list', Piste::class);
         yield MenuItem::linkToCrud('Remontee', 'fas fa-list', Remontee::class);
-
+        //   yield MenuItem::linkToCrud('Stationsowner', 'fas fa-list', StationSki::class);
     }
 }

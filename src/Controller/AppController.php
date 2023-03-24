@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Gdomaine;
-use App\Entity\Station;
-use App\Repository\GdomaineRepository;
+
+use App\Form\FdomaineType;
 use App\Repository\PisteRepository;
-use App\Repository\RemonteeRepository;
-use App\Repository\StationRepository;
-use App\Repository\StationSkiRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Gdomaine;
+use App\Repository\GdomaineRepository;
+use App\Repository\RemonteeRepository;
+use App\Repository\StationSkiRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +29,17 @@ class AppController extends AbstractController
         ]);
     }
 
+
+    #[Route('/piste', name: 'app_piste')]
+    public function piste(Request $request, PisteRepository $pisteRepository): Response
+    {
+        $pistes = $pisteRepository->findAll();
+
+        return $this->render('app/piste.html.twig', [
+            'controller_name' => 'AppController',
+            'pistes' => $pistes,
+        ]);
+    }
 
     #[Route('/automatic{id}', name: 'app_auto')]
     public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
@@ -66,6 +80,7 @@ class AppController extends AbstractController
 
         return $this->redirectToRoute('app_edit', ['id' => $id]);
     }
+
     #[Route('/edit{id}', name: 'app_edit')]
     public function edit(StationSkiRepository $stationSkiRepository, $id): Response
     {
@@ -75,6 +90,7 @@ class AppController extends AbstractController
             'id' => $id,
         ]);
     }
+
     #[Route('/edit/station/{id}', name: 'station_edit')]
     public function Sedit(StationSkiRepository $stationSkiRepository, $id , PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository): Response
     {
@@ -104,6 +120,7 @@ class AppController extends AbstractController
             'RChour' => $RChour,
         ]);
     }
+
     #[Route('/domaine', name: 'app_domaine')]
     public function domaine(GdomaineRepository $gdomaineRepository): Response
     {
@@ -137,13 +154,43 @@ class AppController extends AbstractController
     }
 
     #[Route('/Fdomaine', name: 'domaine_new')]
-    public function Ndomaine(ManagerRegistry $managerRegistry): Response
+    public function Ndomaine(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
 
+        $fdomaine = new Gdomaine();
+        $form = $this->createForm(FdomaineType::class, $fdomaine);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {$imagefile = $form->get('image')->getData();
+
+            if ($imagefile) {
+                $originalFilename = pathinfo($imagefile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imagefile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imagefile->move(
+                        $this->getParameter('image_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $fdomaine->setImage($newFilename);
+            }
+
+            $em->persist($fdomaine);
+            $em->flush();
+
+            return $this->redirectToRoute('app_domaine');
+        }
+
         return $this->render('app/fdomaine.html.twig', [
-            'domaine' => 'coucou',
+            'form' => $form->createView(),
         ]);
     }
-
-
 }
