@@ -61,6 +61,8 @@ class AppFixtures extends Fixture
             }
             $piste->setOuverture(rand(0, 1));
 
+            $piste->setBlock(0);
+
             $ouverture = new \DateTime('8:00');
             $fermeture = new \DateTime('19:00');
 

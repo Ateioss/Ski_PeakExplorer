@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StationSkiRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StationSkiRepository::class)]
@@ -28,6 +30,21 @@ class StationSki
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?User $owner = null;
+
+    #[ORM\OneToMany(mappedBy: 'station', targetEntity: Piste::class)]
+    private Collection $pistes;
+
+    #[ORM\OneToMany(mappedBy: 'station', targetEntity: Remontee::class)]
+    private Collection $remontees;
+
+    #[ORM\ManyToOne(inversedBy: 'stationSkis')]
+    private ?Gdomaine $domain = null;
+
+    public function __construct()
+    {
+        $this->pistes = new ArrayCollection();
+        $this->remontees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -93,6 +110,78 @@ class StationSki
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Piste>
+     */
+    public function getPistes(): Collection
+    {
+        return $this->pistes;
+    }
+
+    public function addPiste(Piste $piste): self
+    {
+        if (!$this->pistes->contains($piste)) {
+            $this->pistes->add($piste);
+            $piste->setStation($this);
+        }
+
+        return $this;
+    }
+
+    public function removePiste(Piste $piste): self
+    {
+        if ($this->pistes->removeElement($piste)) {
+            // set the owning side to null (unless already changed)
+            if ($piste->getStation() === $this) {
+                $piste->setStation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Remontee>
+     */
+    public function getRemontees(): Collection
+    {
+        return $this->remontees;
+    }
+
+    public function addRemontee(Remontee $remontee): self
+    {
+        if (!$this->remontees->contains($remontee)) {
+            $this->remontees->add($remontee);
+            $remontee->setStation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemontee(Remontee $remontee): self
+    {
+        if ($this->remontees->removeElement($remontee)) {
+            // set the owning side to null (unless already changed)
+            if ($remontee->getStation() === $this) {
+                $remontee->setStation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDomain(): ?Gdomaine
+    {
+        return $this->domain;
+    }
+
+    public function setDomain(?Gdomaine $domain): self
+    {
+        $this->domain = $domain;
 
         return $this;
     }

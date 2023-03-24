@@ -29,8 +29,11 @@ class Piste
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $horaire_fermeture = null;
 
+    #[ORM\Column]
+    private ?bool $block = null;
+
     #[ORM\ManyToOne(inversedBy: 'pistes')]
-    private ?station $station = null;
+    private ?StationSki $station = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fermeture_expectionelle = null;
@@ -64,7 +67,7 @@ class Piste
         return $this;
     }
 
-    public function isOuverture(): ?bool
+    public function getOuverture(): ?bool
     {
         return $this->ouverture;
     }
@@ -100,12 +103,24 @@ class Piste
         return $this;
     }
 
-    public function getStation(): ?station
+    public function isBlock(): ?bool
+    {
+        return $this->block;
+    }
+
+    public function setBlock(bool $block): self
+    {
+        $this->block = $block;
+
+        return $this;
+    }
+
+    public function getStation(): ?StationSki
     {
         return $this->station;
     }
 
-    public function setStation(?station $station): self
+    public function setStation(?StationSki $station): self
     {
         $this->station = $station;
 
