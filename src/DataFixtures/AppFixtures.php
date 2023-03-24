@@ -54,5 +54,9 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         $manager->flush();
+
+        //Créons des defis !
+
+
     }
 }
