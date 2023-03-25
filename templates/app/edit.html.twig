@@ -3,6 +3,28 @@
 {% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
+    <style>
+        body {
+            background-image: url('/assets/image/background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+      a{
+          text-decoration: none;
+          color: black;
+      }
+
+        button{
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: sans-serif;
+            cursor: pointer;
+        }
+    </style>
     <h1>les Stations de skis</h1>
     <p>Bienvenue sur la page d'édition des stations de ski,
         <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.

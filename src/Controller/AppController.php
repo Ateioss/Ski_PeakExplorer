@@ -25,23 +25,13 @@ class AppController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(): Response
     {
-        $time = date("h:m:s");
-        return $this->render('app/remontee.html.twig', [
+
+        return $this->render('app/index.html.twig', [
             'controller_name' => 'AppController',
         ]);
     }
 
 
-    #[Route('/piste', name: 'app_piste')]
-    public function piste(Request $request, PisteRepository $pisteRepository): Response
-    {
-        $pistes = $pisteRepository->findAll();
-
-        return $this->render('app/piste.html.twig', [
-            'controller_name' => 'AppController',
-            'pistes' => $pistes,
-        ]);
-    }
 
 
     #[Route('/automatic/{id}', name: 'app_auto')]
@@ -81,7 +71,30 @@ class AppController extends AbstractController
             $managerRegistry->getManager()->flush();
 
         }
+        foreach ($remontees as $remontee) {
+            $Hremontee = $remonteeRepository->findOneBy(array('station' => $remontee->getStation()));
 
+            $Ropen = $Hremontee->getOpenTime();
+            $ROhour = $Ropen->format('H:i:s');
+
+            $Rclose = $Hremontee->getCloseTime();
+            $RChour = $Rclose->format('H:i:s');
+            if ($time >= $ROhour && $time <= $RChour ){
+                return $this->json(true);
+            }
+
+
+            if ($time >= $ROhour && $time < $RChour && $remontee->getOpen() == false && $remontee->getBlock() == false) {
+                $remontee->setOpen(true);
+
+            } elseif ($time > $PChour && $piste->getOuverture() == true && $piste->getBlock() == false){
+                $remontee->setOpen(false);
+
+            }
+
+
+            $managerRegistry->getManager()->flush();
+        }
 
 
         return $this->redirectToRoute('app_edit', ["id" => $id]);

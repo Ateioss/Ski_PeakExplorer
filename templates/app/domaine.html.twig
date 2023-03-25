@@ -3,6 +3,41 @@
 {% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
+<style>
+    body {
+        background-image: url('/assets/image/background.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+        background-color: #007bff;
+        border-radius: 10px;
+        padding: 10px;
+        border: 2px solid black;
+    }
+
+    button{
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-family: sans-serif;
+        cursor: pointer;
+    }
+    .global{
+        display: flex;
+        flex-direction: column;
+
+    }
+    .global > div a {
+        width: 7.5%;
+        text-align: center;
+    }
+    </style>
     <h1>les Domaines de skis</h1>
     <p>
         Bienvenue sur la page des domaines de skis
@@ -11,13 +46,17 @@
     {% if admin == true %}
         <a href="{{ path('domaine_new') }}">Ajouter un domaine</a>
     {% endif %}
-    {% for domaines in domaine  %}
+    <div class="global">
+        {% for domaines in domaine  %}
         <div>
             <h3>{{ domaines.name }}</h3>
             <img src="/uploads/{{ domaines.image }}" alt="image de la station" width="200" height="200">
-
+            <br>
             <a href="{{ path('app_edit',{'id': domaines.id}) }}">voir la station</a>
         </div>
 
+
     {% endfor %}
+    </div>
+
 {% endblock %}
