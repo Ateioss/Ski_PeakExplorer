@@ -57,7 +57,14 @@ class StationskiTypeController extends AbstractController
 
             return $this->redirectToRoute('app_index');
         }
+<<<<<<< HEAD
+
+
+
+        return $this->render('stationski_type/remontee.html.twig', [
+=======
         return $this->render('stationski_type/index.html.twig', [
+>>>>>>> 1628bf107c69134e894bf0e7e8ba58cc1e0b2074
             'form' => $form->createView(),
         ]);
     }

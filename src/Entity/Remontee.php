@@ -112,4 +112,44 @@ class Remontee
 
         return $this;
     }
+<<<<<<< HEAD
+
+
+    public function isBlock(): ?bool
+    {
+        return $this->block;
+    }
+
+    public function setBlock(bool $block): self
+    {
+        $this->block = $block;
+
+        return $this;
+    }
+
+    public function getStation(): ?StationSki
+    {
+        return $this->station;
+    }
+
+    public function setStation(?StationSki $station): self
+    {
+        $this->station = $station;
+
+        return $this;
+    }
+
+    public function setBlockOpen(bool $true)
+    {
+    }
+
+    public function setClose(bool $false)
+    {
+    }
+
+    public function setBlockClose(bool $true)
+    {
+    }
+=======
+>>>>>>> 1628bf107c69134e894bf0e7e8ba58cc1e0b2074
 }

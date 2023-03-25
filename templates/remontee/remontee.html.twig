@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Remontée Mécanique{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Listes des remontées mécaniques</h1>
+    {% for remontee in remontee %}
+        <tr>
+            <td>{{ remontee.id }}</td>
+            <td>{{ remontee.name }}</td>
+            <td>{{ remontee.station_id }}</td>
+            <td>{{ remontee.open_time|date('H:i') }}</td>
+            <td>{{ remontee.close_time|date('H:i') }}</td>
+            <td>{{ remontee.open }}</td>
+            <td>{{ remontee.block }}</td>
+        </tr>
+    {% endfor %}
+
+
+    <form action="{{ path('update_remontee' ) }}" method="post">
+
+        <select name="status">
+            <option value="Fermée">Fermée</option>
+            <option value="Ouverte">Ouverte</option>
+        </select>
+        <input type="checkbox" name="block" value="1">
+        <label for="block">Bloquer l'automatisation</label>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
