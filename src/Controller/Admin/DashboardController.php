@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Piste;
 use App\Entity\Remontee;
-
 use App\Entity\StationSki;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;

@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Piste;
 use App\Form\FdomaineType;
 use App\Repository\PisteRepository;
+use App\Repository\StationSkiRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Gdomaine;
 use App\Repository\GdomaineRepository;
 use App\Repository\RemonteeRepository;
-use App\Repository\StationSkiRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,6 +42,7 @@ class AppController extends AbstractController
             'pistes' => $pistes,
         ]);
     }
+
 
     #[Route('/automatic', name: 'app_auto')]
     public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
@@ -96,10 +98,12 @@ class AppController extends AbstractController
     public function Sedit(StationSkiRepository $stationSkiRepository, $id , PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository): Response
     {
         $station = $stationSkiRepository->findOneBy(array('id'=>$id));
+
         $piste =$pisteRepository->findBy(array('station' => $id));
         $remontee = $remonteeRepository->findBy(array('station' => $id));
         $Hpiste =$pisteRepository->findOneBy(array('station' => $id));
         $Hremontee = $remonteeRepository->findOneBy(array('station' => $id));
+        if ($Hpiste != null && $Hremontee != null) {
 
             $Popen = $Hpiste->getHoraireOuverture();
             $POheure = $Popen->format('H:i:s');
@@ -111,15 +115,22 @@ class AppController extends AbstractController
 
             $Rclose = $Hremontee->getCloseTime();
             $RChour = $Rclose->format('H:i:s');
+            return $this->render('app/Sedit.html.twig', [
+                'station' => $station,
+                'piste' => $piste,
+                'remontee' => $remontee,
+                'POheure' => $POheure,
+                'PChour' => $PChour,
+                'ROhour' => $ROhour,
+                'RChour' => $RChour,
+            ]);
+        }
         return $this->render('app/Sedit.html.twig', [
             'station' => $station,
             'piste' => $piste,
             'remontee' => $remontee,
-            'POheure' => $POheure,
-            'PChour' => $PChour,
-            'ROhour' => $ROhour,
-            'RChour' => $RChour,
         ]);
+
     }
 
     #[Route('/domaine', name: 'app_domaine')]
