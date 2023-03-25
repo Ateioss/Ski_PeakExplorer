@@ -6,16 +6,9 @@
     <h1>les Domaines de skis</h1>
     <p>
         Bienvenue sur la page des domaines de skis
-
     </p>
-
-    <form method="post" action="{{ path ('app_CDomaine') }}">
-        <label for="domaine">Choisissez un nom de domaine</label>
-        <input name="name" type="text">
-        <br>
-        <label for="logo">Choisissez un logo</label>
-        <input type="file" name="logo">
-        <br>
-        <input type="submit" value="Envoyer">
-    </form>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.image) }}
+    {{ form_end(form) }}
 {% endblock %}

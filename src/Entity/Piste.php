@@ -25,11 +25,6 @@ class Piste
     #[ORM\Column]
     private ?bool $ouverture = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $horaire_ouverture = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $horaire_fermeture = null;
 
     #[ORM\Column]
     private ?bool $block = null;
@@ -42,6 +37,12 @@ class Piste
 
     #[ORM\ManyToMany(targetEntity: Defis::class, mappedBy: 'piste')]
     private Collection $defis;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $horaire_ouverture = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $horaire_fermeture = null;
 
     public function __construct()
     {
@@ -89,29 +90,7 @@ class Piste
         return $this;
     }
 
-    public function getHoraireOuverture(): ?\DateTimeInterface
-    {
-        return $this->horaire_ouverture;
-    }
 
-    public function setHoraireOuverture(\DateTimeInterface $horaire_ouverture): self
-    {
-        $this->horaire_ouverture = $horaire_ouverture;
-
-        return $this;
-    }
-
-    public function getHoraireFermeture(): ?\DateTimeInterface
-    {
-        return $this->horaire_fermeture;
-    }
-
-    public function setHoraireFermeture(\DateTimeInterface $horaire_fermeture): self
-    {
-        $this->horaire_fermeture = $horaire_fermeture;
-
-        return $this;
-    }
 
 
     public function isBlock(): ?bool
@@ -183,6 +162,7 @@ class Piste
         return $this;
     }
 
+
     const PISTE_STATUS_OPEN = 'open';
     const PISTE_STATUS_CLOSE = 'close';
     const PISTE_STATUS_OPEN_BLOCKED = 'open_blocked';
@@ -201,9 +181,26 @@ class Piste
     public function setPisteStatus(string $pisteStatus): self
     {
         $this->pisteStatus = $pisteStatus;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getHoraireOuverture(): ?\DateTimeInterface
+    {
+        return $this->horaire_ouverture;
+    }
+
+    public function setHoraireOuverture(\DateTimeInterface $horaire_ouverture): self
+    {
+        $this->horaire_ouverture = $horaire_ouverture;
+
 
         return $this;
     }
+
 
     public function isOpen(): bool
     {
@@ -218,6 +215,19 @@ class Piste
     public function isBlocked(): bool
     {
         return $this->pisteStatus === self::PISTE_STATUS_OPEN_BLOCKED || $this->pisteStatus === self::PISTE_STATUS_CLOSE_BLOCKED;
+    }
+
+
+    public function getHoraireFermeture(): ?\DateTimeInterface
+    {
+        return $this->horaire_fermeture;
+    }
+
+    public function setHoraireFermeture(\DateTimeInterface $horaire_fermeture): self
+    {
+        $this->horaire_fermeture = $horaire_fermeture;
+
+        return $this;
     }
 
 }
