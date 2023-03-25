@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Piste;
 use App\Entity\Remontee;
+use App\Entity\StationSki;
 use App\Form\FdomaineType;
 use App\Repository\PisteRepository;
 use App\Repository\StationSkiRepository;
@@ -326,25 +327,31 @@ class AppController extends AbstractController
     #[Route('/Apiste/{id}', name: 'add_pistes')]
     public function addpiste($id, Request $request ,  ManagerRegistry $managerRegistry): Response
     {
+        $station = $managerRegistry->getRepository(StationSki::class)->find($id);
+
         $piste = new Piste();
-        $piste->setStation(strval($id));
+
         $piste->setBlock(false);
-        $piste->setName($request->request->get('nom'));
+        $piste->setName($request->request->get('name'));
+        $piste->setStation($station);
         $piste->setDifficulte($request->request->get('difficulte'));
-        $piste->setHoraireOuverture('08:00:00');
-        $piste->setHoraireFermeture('18:00:00');
+        $ouverture = new \DateTime('8:00');
+        $fermeture = new \DateTime('18:00');
+        $piste->setHoraireOuverture($ouverture);
+        $piste->setHoraireFermeture($fermeture);
         $piste->setOuverture(true);
         $managerRegistry->getManager()->persist($piste);
         $managerRegistry->getManager()->flush();
-        return $this->redirectToRoute('app_Sedit', [
+        return $this->redirectToRoute('station_edit', [
             'id' => $id,
         ]);
     }
     #[Route('/Aremontee/{id}', name: 'add_remontees')]
     public function addremontee($id, Request $request ,  ManagerRegistry $managerRegistry): Response
     {
+        $station = $managerRegistry->getRepository(StationSki::class)->find($id);
         $remontee = new Remontee();
-        $remontee->setStation(intval($id));
+        $remontee->setStation($station);
         $remontee->setBlock(false);
         $remontee->setName($request->request->get('nom'));
         $remontee->setOpenTime('08:00:00');
@@ -352,7 +359,7 @@ class AppController extends AbstractController
         $remontee->setOpen(true);
         $managerRegistry->getManager()->persist($remontee);
         $managerRegistry->getManager()->flush();
-        return $this->redirectToRoute('app_Sedit', [
+        return $this->redirectToRoute('station_edit', [
             'id' => $id,
         ]);
     }

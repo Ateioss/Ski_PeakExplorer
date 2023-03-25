@@ -173,7 +173,7 @@ class Piste
 
     public function setPisteStatus(string $pisteStatus): self
     {
-        $this->pisteStatus = $pisteStatus;
+        return $this->pisteStatus = $pisteStatus;
     }
 
     public function __toString()
