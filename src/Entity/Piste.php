@@ -182,4 +182,42 @@ class Piste
         }
         return $this;
     }
+
+    const PISTE_STATUS_OPEN = 'open';
+    const PISTE_STATUS_CLOSE = 'close';
+    const PISTE_STATUS_OPEN_BLOCKED = 'open_blocked';
+    const PISTE_STATUS_CLOSE_BLOCKED = 'close_blocked';
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $pisteStatus = self::PISTE_STATUS_CLOSE;
+
+    public function getPisteStatus(): ?string
+    {
+        return $this->pisteStatus;
+    }
+
+    public function setPisteStatus(string $pisteStatus): self
+    {
+        $this->pisteStatus = $pisteStatus;
+
+        return $this;
+    }
+
+    public function isOpen(): bool
+    {
+        return $this->pisteStatus === self::PISTE_STATUS_OPEN || $this->pisteStatus === self::PISTE_STATUS_OPEN_BLOCKED;
+    }
+
+    public function isClose(): bool
+    {
+        return $this->pisteStatus === self::PISTE_STATUS_CLOSE || $this->pisteStatus === self::PISTE_STATUS_CLOSE_BLOCKED;
+    }
+
+    public function isBlocked(): bool
+    {
+        return $this->pisteStatus === self::PISTE_STATUS_OPEN_BLOCKED || $this->pisteStatus === self::PISTE_STATUS_CLOSE_BLOCKED;
+    }
+
 }

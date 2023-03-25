@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Piste;
 use App\Repository\PisteRepository;
+use App\Repository\StationSkiRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Gdomaine;
 use App\Repository\GdomaineRepository;
 use App\Repository\RemonteeRepository;
-use App\Repository\StationSkiRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,8 @@ class AppController extends AbstractController
             'pistes' => $pistes,
         ]);
     }
+
+
 
     #[Route('/automatic{id}', name: 'app_auto')]
     public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
