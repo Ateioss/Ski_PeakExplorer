@@ -17,13 +17,81 @@
             <p>{{ station.location }}</p>
         </div>
     <!-- <a href=""><button> Modifier les information de la station</button></a>-->
-    {% for pistes in piste %}
-        <div>
-            <h3>nom de la piste : {{ pistes.name }}</h3>
-            <p>Difficulté : {{ pistes.difficulte }}</p>
-            <p>Heure d'ouverture: {{ POheure }}</p>
-            <p>Heure de fermeture: {{ PChour}}</p>
 
-        </div>
+    <h2> Piste : </h2>
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Difficulté</th>
+        <th>Statut</th>
+        <th>Horaire d'ouverture</th>
+        <th>Horaire de fermeture</th>
+        <th>fermeture expectionelle</th>
+    </tr>
+    </thead>
+        <tbody>
+        {% for pistes in piste %}
+            <tr>
+                <td>{{ pistes.name }}</td>
+                <td>{{ pistes.difficulte }}</td>
+                <td>{% if pistes.ouverture %} Ouverte {% else %} Fermée {% endif %}</td>
+                <td>{{ pistes.horaireOuverture|date('H:i') }}</td>
+                <td>{{ pistes.horaireFermeture|date('H:i') }}</td>
+                <td>{{ pistes.fermetureexpectionelle }}</td>
+                <td>
+                    {% if form[pistes.id] is defined %}
+                        {{ form_start(form[pistes.id]) }}
+                        {{ form_label(form[pistes.id].block) }}
+                        {{ form_widget(form[pistes.id].block) }}
+                        <button type="submit">Enregistrer</button>
+                        {{ form_end(form[pistes.id]) }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <h1>Pistes</h1>
+    {{ form_start(form) }}
+    <input type="submit" value="Enregistrer">
+    {{ form_end(form) }}
+
+    <h2> Remontée : </h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Statut</th>
+        <th>Horaire d'ouverture</th>
+        <th>Horaire de fermeture</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for remonte in remontee %}
+    <tr>
+        <td>{{ remonte.name }}</td>
+        <td>{% if remonte.open %} Ouverte {% else %} Fermée {% endif %}</td>
+        <td>{{ remonte.opentime|date('H:i') }}</td>
+        <td>{{ remonte.closetime|date('H:i') }}</td>
+
+
+    </tr>
     {% endfor %}
+    </tbody>
+</table>
+    <br>
+<div>
+    <form action="{{ path('update_remontee', {'id' : station.id} ) }}" method="post">
+
+        <select name="status">
+            <option value="close">Fermée</option>
+            <option value="open">Ouverte</option>
+        </select>
+        <input type="checkbox" name="block" value="1">
+        <label for="block">Bloquer l'automatisation</label>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
 {% endblock %}

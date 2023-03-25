@@ -63,8 +63,8 @@ class PisteController extends AbstractController
         }
 
 
-        return $this->render('piste/index.html.twig', [
-            'pistes' => $pistes,
+        return $this->render('app/Sedit.html.twig', [
+
             'form' => $form->createView(),
         ]);
     }
