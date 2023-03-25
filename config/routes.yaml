@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+pistes:
+    path: /pistes
+    controller: App\Controller\PisteController::pistes
+    methods: [ GET, POST ]

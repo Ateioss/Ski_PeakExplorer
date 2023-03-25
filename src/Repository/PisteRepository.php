@@ -63,12 +63,6 @@ class PisteRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-    public function findAllOrderByDifficulty($sort)
-    {
-        $qb = $this->createQueryBuilder('p')
-            ->orderBy('p.difficulte', $sort);
 
-        return $qb->getQuery()->getResult();
-    }
 
 }

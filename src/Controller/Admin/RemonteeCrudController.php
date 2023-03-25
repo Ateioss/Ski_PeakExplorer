@@ -6,6 +6,7 @@ use App\Entity\Remontee;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -26,10 +27,22 @@ class RemonteeCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             BooleanField::new('open'),
+            ChoiceField::new('block')
+                ->setLabel('block')
+                ->setChoices([
+                    'Fermée' => 0,
+                    'Ouverte' => 1,
+                ]),
             
             TimeField::new('open_time'),
             TimeField::new('close_time'),
-            AssociationField::new('station'),
+
+            ChoiceField::new('block')
+                ->setLabel('block')
+                ->setChoices([
+                    'Fermée' => 0,
+                    'Ouverte' => 1,
+                ]),
         ];
     }
 

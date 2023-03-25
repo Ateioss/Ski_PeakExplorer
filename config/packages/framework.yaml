@@ -18,6 +18,11 @@ framework:
     php_errors:
         log: true
 
+    assets:
+        packages:
+            group4:
+                base_path: 'assets/'
+
 when@test:
     framework:
         test: true
