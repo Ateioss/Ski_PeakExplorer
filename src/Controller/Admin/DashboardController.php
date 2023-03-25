@@ -5,8 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Piste;
 use App\Entity\Remontee;
 
-
-use App\Entity\Station;
 use App\Entity\StationSki;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -27,7 +25,6 @@ class DashboardController extends AbstractDashboardController
         //
          $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
         return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
-        return $this->redirect($adminUrlGenerator->setController(RemonteeCrudController::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //

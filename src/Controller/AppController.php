@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Form\FdomaineType;
 use App\Repository\PisteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Gdomaine;
 use App\Repository\GdomaineRepository;
@@ -41,7 +42,7 @@ class AppController extends AbstractController
         ]);
     }
 
-    #[Route('/automatic{id}', name: 'app_auto')]
+    #[Route('/automatic', name: 'app_auto')]
     public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id): Response
     {
         $time = date("h:m:s");
@@ -78,16 +79,16 @@ class AppController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_edit', ['id' => $id]);
+        return $this->redirectToRoute('app_edit');
     }
 
-    #[Route('/edit{id}', name: 'app_edit')]
+    #[Route('/edit/{id}', name: 'app_edit')]
     public function edit(StationSkiRepository $stationSkiRepository, $id): Response
     {
-        $station = $stationSkiRepository->findBy(array('domain' => $id));
+        $station = $stationSkiRepository->findBy(array('domain'=>$id));
         return $this->render('app/edit.html.twig', [
             'station' => $station,
-            'id' => $id,
+
         ]);
     }
 
