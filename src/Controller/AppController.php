@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Piste;
+use App\Entity\Remontee;
 use App\Form\FdomaineType;
 use App\Repository\PisteRepository;
 use App\Repository\StationSkiRepository;
@@ -26,7 +27,7 @@ class AppController extends AbstractController
     public function index(): Response
     {
 
-        return $this->render('app/index.html.twig', [
+        return $this->render('app/domaine.html.twig', [
             'controller_name' => 'AppController',
         ]);
     }
@@ -113,6 +114,10 @@ class AppController extends AbstractController
 
     public function Sedit(StationSkiRepository $stationSkiRepository, $id, PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $Ruser = $user->getRoles();
+
+        if ($Ruser[0] == 'ROLE_ADMIN' || $Ruser[0] == 'ROLE_ASTATION'){
 
         $form = $this->createFormBuilder()
             ->add('piste_status', ChoiceType::class, [
@@ -219,33 +224,46 @@ class AppController extends AbstractController
             ]);
         }
 
-        return $this->render('app/Sedit.html.twig', [
-            'station' => $station,
-            'piste' => $piste,
-            'remontee' => $remontee,
-            'form' => $form->createView(),
-        ]);
+            return $this->render('app/Sedit.html.twig', [
+                'station' => $station,
+                'piste' => $piste,
+                'remontee' => $remontee,
+                'form' => $form->createView(),
+            ]);
+        }
+        else {
+            return $this->redirectToRoute('app_index');
+        }
+
 
     }
 
 
-    #[Route('/domaine', name: 'app_domaine')]
+    #[Route('/Adomaine', name: 'admin_domaine')]
     public function domaine(GdomaineRepository $gdomaineRepository): Response
     {
-        $domaine = $gdomaineRepository->findAll();
         $user = $this->getUser();
-        $Ruser = $this->getUser()->getRoles()[0];
-        if ($Ruser == "ROLE_ADMIN") {
+        $Ruser = $user->getRoles();
+
+        if ($Ruser[0] == 'ROLE_ADMIN' || $Ruser[0] == 'ROLE_ASTATION') {
+            $domaine = $gdomaineRepository->findAll();
+            $user = $this->getUser();
+            $Ruser = $this->getUser()->getRoles()[0];
+            if ($Ruser == "ROLE_ADMIN") {
+                return $this->render('app/domaine.html.twig', [
+                    'domaine' => $domaine,
+                    'admin' => true
+                ]);
+            }
+
             return $this->render('app/domaine.html.twig', [
                 'domaine' => $domaine,
-                'admin' => true
+                'admin' => false
             ]);
         }
-
-        return $this->render('app/domaine.html.twig', [
-            'domaine' => $domaine,
-            'admin' => false
-        ]);
+        else {
+            return $this->redirectToRoute('app_index');
+        }
     }
 
     #[Route('/Cdomaine', name: 'app_CDomaine', methods: ['GET', 'POST'])]
@@ -302,4 +320,47 @@ class AppController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    #[Route('/Apiste/{id}', name: 'add_pistes')]
+    public function addpiste($id, Request $request ,  ManagerRegistry $managerRegistry): Response
+    {
+        $piste = new Piste();
+        $piste->setStation($id);
+        $piste->setBlock(false);
+        $piste->setName($request->request->get('nom'));
+        $piste->setDifficulte($request->request->get('difficulte'));
+        $piste->setHoraireOuverture('08:00:00');
+        $piste->setHoraireFermeture('18:00:00');
+        $piste->setOuverture(true);
+        $managerRegistry->getManager()->persist($piste);
+        $managerRegistry->getManager()->flush();
+        return $this->redirectToRoute('app_Sedit', [
+            'id' => $id,
+        ]);
+    }
+    #[Route('/Aremontee/{id}', name: 'add_remontees')]
+    public function addremontee($id, Request $request ,  ManagerRegistry $managerRegistry): Response
+    {
+        $remontee = new Remontee();
+        $remontee->setStation($id);
+        $remontee->setBlock(false);
+        $remontee->setName($request->request->get('nom'));
+        $remontee->setOpenTime('08:00:00');
+        $remontee->setCloseTime('18:00:00');
+        $remontee->setOpen(true);
+        $managerRegistry->getManager()->persist($remontee);
+        $managerRegistry->getManager()->flush();
+        return $this->redirectToRoute('app_Sedit', [
+            'id' => $id,
+        ]);
+    }
+    #[Route('/FAremontee/{id}', name: 'fadd_remotee')]
+    public function faddremontee($id): Response
+    {
+        return $this->render('app/fremontee.html.twig', [
+            'id' => $id,
+        ]);
+    }
 }
+

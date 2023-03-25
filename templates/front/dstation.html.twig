@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    <h1>la Stations {{ station.name }}</h1>
+    <p>
+        Bienvenue sur la page de la station {{ station.name }}.
+
+
+    </p>
+    <div>
+
+        <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
+        <p>{{ station.description }}</p>
+        <p>{{ station.location }}</p>
+    </div>
+    <h2> Piste : </h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Difficulté</th>
+            <th>Statut</th>
+            <th>Horaire d'ouverture</th>
+            <th>Horaire de fermeture</th>
+            <th>fermeture expectionelle</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pistes in piste %}
+            <tr>
+                <td>{{ pistes.name }}</td>
+                <td>{{ pistes.difficulte }}</td>
+                <td>{% if pistes.ouverture %} Ouverte {% else %} Fermée {% endif %}</td>
+                <td>{{ pistes.horaireOuverture|date('H:i') }}</td>
+                <td>{{ pistes.horaireFermeture|date('H:i') }}</td>
+                <td>{{ pistes.fermetureexpectionelle }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <h2> Remontée : </h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Statut</th>
+            <th>Horaire d'ouverture</th>
+            <th>Horaire de fermeture</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for remonte in remontee %}
+            <tr>
+                <td>{{ remonte.name }}</td>
+                <td>{% if remonte.open %} Ouverte {% else %} Fermée {% endif %}</td>
+                <td>{{ remonte.opentime|date('H:i') }}</td>
+                <td>{{ remonte.closetime|date('H:i') }}</td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

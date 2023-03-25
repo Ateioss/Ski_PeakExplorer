@@ -48,8 +48,7 @@ class AppFixtures extends Fixture
         //Créons un domaine !
 
         $domain = new Gdomaine();
-        $domain->setName('Domain ');
-        $domain->setImage('path/to/image.jpg');
+        $domain->setName('Domaine ');
         $manager->persist($domain);
 
         $manager->flush();
