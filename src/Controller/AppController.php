@@ -33,9 +33,6 @@ class AppController extends AbstractController
         ]);
     }
 
-
-
-
     #[Route('/automatic/{id}', name: 'app_auto')]
     public function auto(PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, $id, ManagerRegistry $managerRegistry): Response
     {
@@ -324,6 +321,8 @@ class AppController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
     #[Route('/Apiste/{id}', name: 'add_pistes')]
     public function addpiste($id, Request $request ,  ManagerRegistry $managerRegistry): Response
     {
@@ -363,7 +362,6 @@ class AppController extends AbstractController
             'id' => $id,
         ]);
     }
-
     #[Route('/FAremontee/{id}', name: 'fadd_remotee')]
     public function faddremontee($id): Response
     {
@@ -371,5 +369,5 @@ class AppController extends AbstractController
             'id' => $id,
         ]);
     }
-
 }
+

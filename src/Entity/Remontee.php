@@ -63,8 +63,6 @@ class Remontee
         return $this;
     }
 
-
-
     public function getBlock(): ?bool
     {
         return $this->block;

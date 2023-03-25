@@ -91,7 +91,6 @@ class Piste
     }
 
 
-
     public function getBlock(): ?bool
 
     {

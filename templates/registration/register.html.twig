@@ -2,6 +2,8 @@
 
 {% block title %}Register{% endblock %}
 
+
+
 {% block stylesheets %}
     {{ parent() }}
     <style>
@@ -48,8 +50,9 @@
         }
     </style>
 {% endblock %}
-
 {% block body %}
+    <br><br><br><br>
+    <h1>Register</h1>
     <form method="post">
         {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
