@@ -353,8 +353,10 @@ class AppController extends AbstractController
         $remontee->setStation($station);
         $remontee->setBlock(false);
         $remontee->setName($request->request->get('nom'));
-        $remontee->setOpenTime('08:00:00');
-        $remontee->setCloseTime('18:00:00');
+        $ouverture = new \DateTime('8:00');
+        $fermeture = new \DateTime('18:00');
+        $remontee->setHoraireOuverture($ouverture);
+        $remontee->setHoraireFermeture($fermeture);
         $remontee->setOpen(true);
         $managerRegistry->getManager()->persist($remontee);
         $managerRegistry->getManager()->flush();
