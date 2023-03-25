@@ -48,8 +48,7 @@ class AppFixtures extends Fixture
         //Créons un domaine !
 
         $domain = new Gdomaine();
-        $domain->setName('Domain ');
-        $domain->setImage('path/to/image.jpg');
+        $domain->setName('Domaine ');
         $manager->persist($domain);
 
         $manager->flush();
@@ -61,7 +60,6 @@ class AppFixtures extends Fixture
             $station = new StationSki();
             $station->setName('Station ' . $i);
             $station->setLocation('Location ' . $i);
-            $station->setImage('path/to/image' . $i . '.jpg');
             $station->setDescription('Description ' . $i);
 
             // Affecter une station de manière aléatoire à un domaine

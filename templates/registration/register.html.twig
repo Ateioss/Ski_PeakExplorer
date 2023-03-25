@@ -41,6 +41,11 @@
             font-family: sans-serif;
             cursor: pointer;
         }
+        label {
+            font-size: 16px;
+            font-family: sans-serif;
+            display: flex;
+        }
     </style>
 {% endblock %}
 
@@ -53,6 +58,16 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
+        <h3>Statut</h3>
+        <label>
+            <p>Administateur station</p>
+            <input type="radio" name="statut" value="ROLE_ASTATION">
+            <p>Utilisateur</p>
+            <input type="radio" name="statut" value="ROLE_USER">
+        </label>
+        <br>
+
+
         <button type="submit" class="btn">Register</button>
 {{ form_end(registrationForm) }}
     </form>

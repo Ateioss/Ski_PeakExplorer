@@ -116,6 +116,8 @@ class AppController extends AbstractController
 
     public function Sedit(StationSkiRepository $stationSkiRepository, $id, PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if ($user->getRoles() == ['ROLE_ADMIN'] || $user->getRoles() == ['ROLE_ASTATION']){
 
         $form = $this->createFormBuilder()
             ->add('piste_status', ChoiceType::class, [
@@ -222,12 +224,17 @@ class AppController extends AbstractController
             ]);
         }
 
-        return $this->render('app/Sedit.html.twig', [
-            'station' => $station,
-            'piste' => $piste,
-            'remontee' => $remontee,
-            'form' => $form->createView(),
-        ]);
+            return $this->render('app/Sedit.html.twig', [
+                'station' => $station,
+                'piste' => $piste,
+                'remontee' => $remontee,
+                'form' => $form->createView(),
+            ]);
+        }
+        else {
+            return $this->redirectToRoute('app_index');
+        }
+
 
     }
 
