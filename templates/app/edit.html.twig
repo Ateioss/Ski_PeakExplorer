@@ -4,17 +4,17 @@
 
 {% block body %}
     <h1>les Stations de skis</h1>
-    <p>
-        Bienvenue sur la page d'édition des stations de ski,
+    <p>Bienvenue sur la page d'édition des stations de ski,
         <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
-
         et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
-
     </p>
+    <button><a href="{{ path('app_stationski_type') }}">Ajouter une station</a></button>
     {% for stations in station  %}
         <div>
             <h3>{{ stations.name }}</h3>
-            <img src="uploads/images/{{ stations.image }}" alt="image de la station" width="200" height="200">
+            
+            <img src="/uploads{{ stations.image }}" alt="image de la station" width="200" height="200">
+
             <a href="{{ path('station_edit', {'id': stations.id}) }}">voir la station</a>
         </div>
 

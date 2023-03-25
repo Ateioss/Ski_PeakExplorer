@@ -36,7 +36,13 @@ class RemonteeCrudController extends AbstractCrudController
             
             TimeField::new('open_time'),
             TimeField::new('close_time'),
-            AssociationField::new('station'),
+
+            ChoiceField::new('block')
+                ->setLabel('block')
+                ->setChoices([
+                    'Fermée' => 0,
+                    'Ouverte' => 1,
+                ]),
         ];
     }
 

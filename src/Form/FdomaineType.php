@@ -2,24 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\StationSki;
+use App\Entity\Gdomaine;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
-class StationSkiType extends AbstractType
+class FdomaineType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
-            ->add('location')
-            ->add('description')
             ->add('image', FileType::class, [
-                'label' => 'Image (fichier image)',
+                'label' => 'Image ',
                 'required' => false,
                 'data_class' => null,
             ])
@@ -30,7 +27,7 @@ class StationSkiType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => StationSki::class,
+            'data_class' => Gdomaine::class,
         ]);
     }
 }

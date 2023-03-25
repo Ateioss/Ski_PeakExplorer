@@ -7,28 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\StationSki;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Form\StationSkiType;
 
 class StationskiTypeController extends AbstractController
 {
     #[Route('/stationski/type', name: 'app_stationski_type')]
 
-    /*public static function getEntityFqcn(): string
-    {
-        return StationSkiType::class;
-    }
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
-            ImageField::new('image')
-                ->setBasePath('uploads')
-                ->setUploadDir('public/uploads')
-                ->setUploadedFileNamePattern('[randomhash].[extension]'),
-        ];
-    }*/
-    public function index(Request $request, EntityManagerInterface $em): Response
+    public function index(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $notification = null;
 
@@ -36,7 +22,33 @@ class StationskiTypeController extends AbstractController
         $form = $this->createForm(StationSkiType::class, $stationSki);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $imagefile = $form->get('image')->getData();
+
+            if ($imagefile) {
+                $originalFilename = pathinfo($imagefile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imagefile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imagefile->move(
+                        $this->getParameter('image_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $stationSki->setImage($newFilename);
+            }
+
             $em->persist($stationSki);
             $em->flush();
 
@@ -45,10 +57,14 @@ class StationskiTypeController extends AbstractController
 
             return $this->redirectToRoute('app_index');
         }
+<<<<<<< HEAD
 
 
 
         return $this->render('stationski_type/remontee.html.twig', [
+=======
+        return $this->render('stationski_type/index.html.twig', [
+>>>>>>> 1628bf107c69134e894bf0e7e8ba58cc1e0b2074
             'form' => $form->createView(),
         ]);
     }
