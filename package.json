@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "sass": "^1.60.0",
+    "sass-loader": "^13.2.1"
+  },
+  "scripts": {
+    "sass": "sass --watch public/assets/css/output.scss:public/assets/css/style.css"
+  }
+}

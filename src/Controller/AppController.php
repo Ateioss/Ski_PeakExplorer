@@ -99,7 +99,6 @@ class AppController extends AbstractController
         $remontee = $remonteeRepository->findBy(array('station' => $id));
         $Hpiste =$pisteRepository->findOneBy(array('station' => $id));
         $Hremontee = $remonteeRepository->findOneBy(array('station' => $id));
-
             $Popen = $Hpiste->getHoraireOuverture();
             $POheure = $Popen->format('H:i:s');
 
@@ -156,14 +155,12 @@ class AppController extends AbstractController
     #[Route('/Fdomaine', name: 'domaine_new')]
     public function Ndomaine(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
-
         $fdomaine = new Gdomaine();
         $form = $this->createForm(FdomaineType::class, $fdomaine);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {$imagefile = $form->get('image')->getData();
-
             if ($imagefile) {
                 $originalFilename = pathinfo($imagefile->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
