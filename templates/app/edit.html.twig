@@ -30,7 +30,7 @@
         <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
         et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
     </p>
-    <button><a href="{{ path('app_stationski_type') }}">Ajouter une station</a></button>
+    <a href="{{ path('app_stationski_type') }}"> <button>Ajouter une station</button></a>
     {% for stations in station  %}
         <div>
             <h3>{{ stations.name }}</h3>

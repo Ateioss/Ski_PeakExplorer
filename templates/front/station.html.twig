@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <p>Bienvenue sur la page d'édition des stations de ski,
+        <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
+        et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
+    </p>
+
+    {% for stations in station  %}
+        <div>
+            <h3>{{ stations.name }}</h3>
+
+            <img src="/uploads{{ stations.image }}" alt="image de la station" width="200" height="200">
+
+            <a href="{{ path('app_dstation', {'id': stations.id}) }}">voir la station</a>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

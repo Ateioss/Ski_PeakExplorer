@@ -3,7 +3,7 @@
 {% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
-    <h1>les Stations de skis</h1>
+    <h1>la Stations de skis</h1>
     <p>
         Bienvenue sur la page d'édition des stations de ski,
         <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
@@ -16,7 +16,8 @@
             <p>{{ station.description }}</p>
             <p>{{ station.location }}</p>
         </div>
-    <!-- <a href=""><button> Modifier les information de la station</button></a>-->
+
+     <a href="{{ path ('fadd_remotee', {id : station.id}) }}"><button> Ajouter des pistes ou des stations</button></a>
 
     <h2> Piste : </h2>
     <table class="table">
