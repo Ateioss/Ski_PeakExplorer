@@ -110,4 +110,16 @@ class Remontee
 
         return $this;
     }
+
+    public function setBlockOpen(bool $true)
+    {
+    }
+
+    public function setClose(bool $false)
+    {
+    }
+
+    public function setBlockClose(bool $true)
+    {
+    }
 }

@@ -48,7 +48,7 @@ class StationskiTypeController extends AbstractController
 
 
 
-        return $this->render('stationski_type/index.html.twig', [
+        return $this->render('stationski_type/remontee.html.twig', [
             'form' => $form->createView(),
         ]);
     }

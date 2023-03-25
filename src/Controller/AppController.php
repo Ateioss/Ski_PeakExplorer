@@ -21,7 +21,7 @@ class AppController extends AbstractController
     public function index(): Response
     {
         $time = date("h:m:s");
-        return $this->render('app/index.html.twig', [
+        return $this->render('app/remontee.html.twig', [
             'controller_name' => 'AppController',
         ]);
     }
@@ -111,5 +111,16 @@ class AppController extends AbstractController
         ]);
     }
 
+    #[Route('/remontee', name: 'app_remontee')]
+    public function remontee(RemonteeRepository $remonteeRepository, StationSkiRepository $stationSkiRepository): Response
+    {
+        $station = $stationSkiRepository->findAll();
+        $remontee = $remonteeRepository->findAll();
 
+        return $this->render('remontee/remontee.html.twig', [
+            'controller_name' => 'RemonteeController',
+            'remontee' => $remontee ,
+            'station' => $station ,
+        ]);
+    }
 }
