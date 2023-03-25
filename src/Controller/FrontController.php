@@ -17,7 +17,7 @@ class FrontController extends AbstractController
     {
         $domaine = $gdomaineRepository->findAll();
 
-            return $this->render('front/domaine.html.twig', [
+            return $this->render('front/domaines.html.twig', [
                 'domaine' => $domaine,
 
             ]);
