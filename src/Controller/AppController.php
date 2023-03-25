@@ -27,7 +27,7 @@ class AppController extends AbstractController
     public function index(): Response
     {
 
-        return $this->render('app/domaine.html.twig', [
+        return $this->render('app/index.html.twig', [
             'controller_name' => 'AppController',
         ]);
     }
@@ -240,7 +240,7 @@ class AppController extends AbstractController
 
 
     #[Route('/Adomaine', name: 'admin_domaine')]
-    public function domaine(GdomaineRepository $gdomaineRepository): Response
+    public function domaines(GdomaineRepository $gdomaineRepository): Response
     {
         $user = $this->getUser();
         $Ruser = $user->getRoles();
@@ -250,13 +250,13 @@ class AppController extends AbstractController
             $user = $this->getUser();
             $Ruser = $this->getUser()->getRoles()[0];
             if ($Ruser == "ROLE_ADMIN") {
-                return $this->render('app/domaine.html.twig', [
+                return $this->render('app/domaines.html.twig', [
                     'domaine' => $domaine,
                     'admin' => true
                 ]);
             }
 
-            return $this->render('app/domaine.html.twig', [
+            return $this->render('app/domaines.html.twig', [
                 'domaine' => $domaine,
                 'admin' => false
             ]);
@@ -326,7 +326,7 @@ class AppController extends AbstractController
     public function addpiste($id, Request $request ,  ManagerRegistry $managerRegistry): Response
     {
         $piste = new Piste();
-        $piste->setStation($id);
+        $piste->setStation(strval($id));
         $piste->setBlock(false);
         $piste->setName($request->request->get('nom'));
         $piste->setDifficulte($request->request->get('difficulte'));
@@ -343,7 +343,7 @@ class AppController extends AbstractController
     public function addremontee($id, Request $request ,  ManagerRegistry $managerRegistry): Response
     {
         $remontee = new Remontee();
-        $remontee->setStation($id);
+        $remontee->setStation(intval($id));
         $remontee->setBlock(false);
         $remontee->setName($request->request->get('nom'));
         $remontee->setOpenTime('08:00:00');
