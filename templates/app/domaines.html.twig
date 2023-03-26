@@ -20,12 +20,41 @@
 
     .global{
         display: flex;
-        flex-direction: column;
+
 
     }
     .global > div a {
         width: 7.5%;
         text-align: center;
+    }
+    @media(max-width: 600px){
+
+        .Domaine{
+            width: 450px;
+            height: 450px;
+
+            border-radius: 5px;
+            margin: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+
+
+        }
+        .Domaine h3{
+            font-size: 50px;
+        }
+        .Domaine img{
+            width: 300px;
+            height: 300px;
+            margin-bottom: 10px;
+        }
+        .presentation{
+            width: 100%;
+            text-align: center;
+
+            font-size: 20px;
+            padding-top: 50px;
+        }
     }
     </style>
     <header >
@@ -50,17 +79,19 @@
         </nav>
     </header>
     <br><br><br><br>
+    <div class="presentation">
     <h1>les Domaines de skis</h1>
     <p>
         Bienvenue sur la page des domaines de skis
 
     </p>
+    </div>
     {% if admin == true %}
         <a href="{{ path('domaine_new') }}">Ajouter un domaine</a>
     {% endif %}
     <div class="global">
         {% for domaines in domaine  %}
-        <div>
+        <div class="Domaine">
             <h3>{{ domaines.name }}</h3>
             <img src="/uploads/{{ domaines.image }}" alt="image de la station" width="200" height="200">
             <br>

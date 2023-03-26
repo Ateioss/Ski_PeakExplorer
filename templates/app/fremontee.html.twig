@@ -4,18 +4,26 @@
 
 {% block body %}
     <style>
+        .navbar{
+            padding: 15px 0;
+            background: #03312E;
+        }
+        .navbar .logo a span{
+            color: #F0F6F6;
+            transition: all 0.3s ease;
+        }
         body {
             background-image: url('/assets/image/background.png');
             background-size: cover;
             background-repeat: no-repeat;
         }
-        form {
+        .form {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
             max-width: 400px;
             margin: 150px auto 0 auto;
-            margin-top:0;
+            margin-top:20px;
         }
         input[type="text"],
         input[type="email"],
