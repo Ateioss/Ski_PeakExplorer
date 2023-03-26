@@ -21,31 +21,34 @@ class StationskimodifController extends AbstractController
         $form = $this->createForm(StationSkiType::class, $station);
         $form->handleRequest($request);
 
-        $imagefile = $form->get('image')->getData();
 
-        if ($imagefile) {
-            $originalFilename = pathinfo($imagefile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$imagefile->guessExtension();
 
-            // Move the file to the directory where brochures are stored
-            try {
-                $imagefile->move(
-                    $this->getParameter('image_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
 
-            // updates the 'brochureFilename' property to store the PDF file name
-            // instead of its contents
-            $station->setImage($newFilename);
-        }
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imagefile = $form->get('image')->getData();
+
+            if ($imagefile) {
+                $originalFilename = pathinfo($imagefile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imagefile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imagefile->move(
+                        $this->getParameter('image_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $station->setImage($newFilename);
+            }
             $modifb =$form->get('description')->getData();
             $station->setDescription($modifb);
 

@@ -1,11 +1,90 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello FrontController!{% endblock %}
-
+{% block title %}Domaines{% endblock %}
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .navbar{
+        padding: 15px 0;
+        background: #03312E;
+    }
+    .navbar .logo a span{
+        color: #F0F6F6;
+        transition: all 0.3s ease;
+    }
+
+    *{
+        font-family: 'Ubuntu', sans-serif;
+    }
+    main{
+        background-image: url("public/assets/image/background.png");
+    }
+
+    section{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .global-cards{
+        width: 100%;
+        padding-left: 90px;
+        padding-right: 10px;
+        padding-top: 40px;
+        background-color: #B8D3B0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .card{
+        width: 350px;
+        height: 400px;
+        margin-left: 50px;
+        margin-right: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .card-title{
+        padding: 15px;
+        width: 350px;
+        background: #03312E;
+        color: #F0F6F6;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+        text-align: center;
+    }
+
+    .card-img{
+        border-right: #03312E 10px solid;
+        border-left: #03312E 10px solid;
+
+    }
+    .card-link{
+        padding: 15px;
+        width: 350px;
+        background: #03312E;
+        color: #F0F6F6;
+        border-bottom-left-radius: 50px ;
+        border-bottom-right-radius: 50px ;
+        text-align: center;
+    }
+    .domaine-pres {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Ubuntu', sans-serif;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 100px;
+    }
+    .text-2{
+        font-size: 50px;
+    }
+    .text-3{
+        font-size: 22px;
+    }
+
 </style>
     <header >
         <nav class="navbar" >
@@ -15,11 +94,14 @@
                 </div>
                 <ul class="menu">
                     <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
-                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Stations</a></li>
+                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
                     <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
-                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
-
+                    {% if user == 'ROLE_ADMIN'%}
+                        <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
+                    {% elseif user == 'ROLE_ASTATION'%}
+                        <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
+                    {% endif %}
                 </ul>
                 <div class="menu-btn">
                     <i class="fas fa-bars"></i>
@@ -28,24 +110,25 @@
             </div>
         </nav>
     </header>
-    <br><br><br><br>
+<main>
+    <section>
+        <div class="domaine-pres">
+            <h1 class="text-2">Domaines de ski</h1>
+            <p class="text-3">
+                Bienvenue sur la page des domaines de skis
+            </p>
+        </div>
+        <div class="global-cards">
+            {% for domaines in domaine  %}
+                <div class="card">
+                    <h3 class="card-title">{{ domaines.name }}</h3>
+                    <img src="/uploads/{{ domaines.image }}" alt="image de la station" width="350" height="266" class="card-img">
+                    <a href="{{ path('app_Station',{'id': domaines.id}) }}" class="card-link" >voir la station</a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
 
-    <h1>les Domaines de skis</h1>
-    <p>
-        Bienvenue sur la page des domaines de skis
-
-    </p>
-    <div class="global">
-        {% for domaines in domaine  %}
-            <div>
-                <h3>{{ domaines.name }}</h3>
-                <img src="/uploads/{{ domaines.image }}" alt="image de la station" width="200" height="200">
-                <br>
-                <a href="{{ path('app_Station',{'id': domaines.id}) }}">voir la station</a>
-            </div>
-
-
-        {% endfor %}
-    </div>
 
 {% endblock %}

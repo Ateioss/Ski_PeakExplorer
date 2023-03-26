@@ -9,32 +9,52 @@
         background-size: cover;
         background-repeat: no-repeat;
     }
-    a{
-        text-decoration: none;
-        color: black;
-        background-color: #007bff;
-        border-radius: 10px;
-        padding: 10px;
-        border: 2px solid black;
+    .navbar{
+        padding: 15px 0;
+        background: #03312E;
     }
-    button{
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        font-family: sans-serif;
-        cursor: pointer;
+    .navbar .logo a span{
+        color: #F0F6F6;
+        transition: all 0.3s ease;
     }
+
     .global{
         display: flex;
-        flex-direction: column;
+
 
     }
     .global > div a {
         width: 7.5%;
         text-align: center;
+    }
+    @media(max-width: 600px){
+
+        .Domaine{
+            width: 450px;
+            height: 450px;
+
+            border-radius: 5px;
+            margin: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+
+
+        }
+        .Domaine h3{
+            font-size: 50px;
+        }
+        .Domaine img{
+            width: 300px;
+            height: 300px;
+            margin-bottom: 10px;
+        }
+        .presentation{
+            width: 100%;
+            text-align: center;
+
+            font-size: 20px;
+            padding-top: 50px;
+        }
     }
     </style>
     <header >
@@ -44,11 +64,11 @@
                     <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
                 </div>
                 <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
-                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Stations</a></li>
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">Acceuil</a></li>
+                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
                     <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
-                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
 
                 </ul>
                 <div class="menu-btn">
@@ -59,21 +79,23 @@
         </nav>
     </header>
     <br><br><br><br>
+    <div class="presentation">
     <h1>les Domaines de skis</h1>
     <p>
         Bienvenue sur la page des domaines de skis
 
     </p>
+    </div>
     {% if admin == true %}
         <a href="{{ path('domaine_new') }}">Ajouter un domaine</a>
     {% endif %}
     <div class="global">
         {% for domaines in domaine  %}
-        <div>
+        <div class="Domaine">
             <h3>{{ domaines.name }}</h3>
             <img src="/uploads/{{ domaines.image }}" alt="image de la station" width="200" height="200">
             <br>
-            <a href="{{ path('app_edit',{'id': domaines.id}) }}">voir la station</a>
+            <a href="{{ path('app_edit',{'id': domaines.id}) }}">voir les stations du domaine</a>
         </div>
 
 

@@ -4,18 +4,26 @@
 
 {% block body %}
     <style>
+        .navbar{
+            padding: 15px 0;
+            background: #03312E;
+        }
+        .navbar .logo a span{
+            color: #F0F6F6;
+            transition: all 0.3s ease;
+        }
         body {
             background-image: url('/assets/image/background.png');
             background-size: cover;
             background-repeat: no-repeat;
         }
-        form {
+        .form {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
             max-width: 400px;
             margin: 150px auto 0 auto;
-            margin-top:0;
+            margin-top:20px;
         }
         input[type="text"],
         input[type="email"],
@@ -72,7 +80,9 @@
     <div class="form">
         <h3> Ajout de pistes</h3>
         <form method="post" action="{{ path('add_pistes' , {id: id}) }}">
+            <label for="name">Nom de la piste</label>
             <input name="name" type="text">
+            <label for="name">Difficulté</label>
             <input name="difficulte" type="text">
             <input name="submit" type="submit" value="Envoyer">
 
@@ -81,6 +91,7 @@
     <div class="form">
         <h3> Ajout de remontées</h3>
         <form method="post" action="{{ path('add_remontees' , {id: id}) }}">
+            <label for="name">Nom de la remontée</label>
             <input name="name" type="text">
             <input name="submit" type="submit" value="Envoyer">
 
