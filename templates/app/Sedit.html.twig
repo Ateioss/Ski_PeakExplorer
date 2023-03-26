@@ -3,6 +3,28 @@
 {% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
+    <header >
+        <nav class="navbar" >
+            <div class="max-width">
+                <div class="logo">
+                    <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
+                </div>
+                <ul class="menu">
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
+                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Stations</a></li>
+                    <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
+                    <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
+                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+
+                </ul>
+                <div class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                    <img src="public/assets/images/menu.png">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br><br><br><br>
     <h1>la Stations de skis</h1>
     <p>
         Bienvenue sur la page d'édition des stations de ski,
@@ -15,9 +37,11 @@
             <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
             <p>{{ station.description }}</p>
             <p>{{ station.location }}</p>
-        </div>
+             </div>
 
-     <a href="{{ path ('fadd_remotee', {id : station.id}) }}"><button> Ajouter des pistes ou des remontees</button></a>
+    <a href="{{ path ('app_stationskimodif', {id : station.id}) }}"><button> modifier la station</button></a>
+
+    <a href="{{ path ('fadd_remotee', {id : station.id}) }}"><button> Ajouter des pistes ou des remontees</button></a>
 
 
     <h2> Piste : </h2>
