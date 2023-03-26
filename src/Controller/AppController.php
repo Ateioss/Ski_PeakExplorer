@@ -25,12 +25,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class AppController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
-    public function index(): Response
+    public function index(StationSkiRepository $stationSkiRepository): Response
     {
+        $station = $stationSkiRepository->findAll();
+        foreach ($station as $stations ){
+            $mystation = $stations ;
+        }
         if ($this->getUser() == null) {
             return $this->render('app/index.html.twig', [
                 'controller_name' => 'AppController',
                 'user' => 'null',
+
+                'stations'=>$mystation
             ]);
         }
 
@@ -41,6 +47,8 @@ class AppController extends AbstractController
         return $this->render('app/index.html.twig', [
             'controller_name' => 'AppController',
             'user' => $Ruser,
+
+            'stations'=>$mystation
         ]);
     }
 
