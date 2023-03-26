@@ -11,7 +11,6 @@
         }
         form {
             background-color: #B8D3B0;
-
             padding: 20px;
             border: solid #03312E 5px;
             border-radius: 20px;
@@ -78,10 +77,12 @@
                     <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
                 </div>
                 <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">Acceuil</a></li>
-                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
+                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Stations</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
                     <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
+                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+
                 </ul>
                 <div class="menu-btn">
                     <i class="fas fa-bars"></i>
@@ -93,7 +94,7 @@
     <br><br><br><br>
 
 <form method="post">
-    <img src="/assets/image/img.png" class="avatar" alt="">
+        <img src="/assets/image/img.png" class="avatar" alt="">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -103,7 +104,6 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-
 
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>

@@ -21,11 +21,6 @@ class StationskimodifController extends AbstractController
         $form = $this->createForm(StationSkiType::class, $station);
         $form->handleRequest($request);
 
-
-
-
-
-
         if ($form->isSubmitted() && $form->isValid()) {
             $imagefile = $form->get('image')->getData();
 
