@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\GdomaineRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +13,9 @@ use App\Form\StationSkiType;
 
 class StationskiTypeController extends AbstractController
 {
-    #[Route('/stationski/type', name: 'app_stationski_type')]
+    #[Route('/stationski/type{id}', name: 'app_stationski_type')]
 
-    public function index(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function index(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, $id, GdomaineRepository $gdomaineRepository): Response
     {
         $notification = null;
 
@@ -27,6 +28,8 @@ class StationskiTypeController extends AbstractController
 
 
             $imagefile = $form->get('image')->getData();
+            $user = $this->getUser();
+            $domaine = $gdomaineRepository->findOneBy(array('id' =>$id));
 
             if ($imagefile) {
                 $originalFilename = pathinfo($imagefile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -48,6 +51,8 @@ class StationskiTypeController extends AbstractController
                 // instead of its contents
                 $stationSki->setImage($newFilename);
             }
+            $stationSki->setOwner($user);
+            $stationSki->setDomain($domaine);
 
             $em->persist($stationSki);
             $em->flush();
