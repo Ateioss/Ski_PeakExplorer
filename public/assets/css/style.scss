@@ -159,18 +159,18 @@ section .title::after{
 /* home section styling */
 .home{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 300px;
-  background: url("https://www.pinterest.com/biozedhossain1/web-design-school/") no-repeat center;
-  height: 100vh;
-  color: #03312E;;
+  height: 300vh;
+  color: #03312E;
+  background-color: #F0F6F6;
   min-height: 500px;
-  background-size: cover;
-  background-attachment: fixed;
   font-family: 'Ubuntu', sans-serif;
+
 }
 .home .max-width{
   margin: auto 0 auto 30px;
+
 }
 .home .home-content .text-1{
   font-size: 27px;
@@ -207,12 +207,11 @@ section .title::after{
 .home-image{
   position: absolute;
   margin-left: 55%;
-  margin-top: 2%;
 
   img{
     width: 450px;
     height: 400px;
-    border-radius: 50%;
+    border-radius: 10%;
     border: #03312E 10px solid;
     box-shadow: 2px 2px 4px rgba(5, 5, 18, 0.7);
 
@@ -263,17 +262,16 @@ section .title::after{
 }
 
 /* services section styling */
-.services, .teams{
+.services{
   color:#F0F6F6;
-  background: #111;
+  background-color: #0f172a;
 }
 .services .title::before,
 .teams .title::before{
   background: #F0F6F6;
 }
-.services .title::after,
-.teams .title::after{
-  background: #111;
+.services .title::after, {
+  background: #ffffff;
   content: "what i provide";
 }
 .services .serv-content .card{
@@ -308,82 +306,12 @@ section .title::after{
   margin: 10px 0 7px 0;
 }
 
-/* skills section styling */
-
-.skills .title::after{
-  content: "what i know";
-}
-.skills .skills-content .column{
-  width: calc(50% - 30px);
-}
-.skills .skills-content .left .text{
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-.skills .skills-content .left p{
-  text-align: justify;
-}
-.skills .skills-content .left a{
-  display: inline-block;
-  background: #03312E;
-  color: #F0F6F6;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 8px 16px;
-  margin-top: 20px;
-  border-radius: 6px;
-  border: 2px solid #03312E;
-  transition: all 0.3s ease;
-}
-.skills .skills-content .left a:hover{
-  color: #03312E;
-  background: none;
-}
-.skills .skills-content .right .bars{
-  margin-bottom: 15px;
-}
-.skills .skills-content .right .info{
-  display: flex;
-  margin-bottom: 5px;
-  align-items: center;
-  justify-content: space-between;
-}
-.skills .skills-content .right span{
-  font-weight: 500;
-  font-size: 18px;
-}
-.skills .skills-content .right .line{
-  height: 5px;
-  width: 100%;
-  background: lightgrey;
-  position: relative;
-}
-.skills .skills-content .right .line::before{
-  content: "";
-  position: absolute;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: #03312E;
-}
-.skills-content .right .html::before{
-  width: 90%;
-}
-.skills-content .right .css::before{
-  width: 60%;
-}
-.skills-content .right .js::before{
-  width: 80%;
-}
-.skills-content .right .php::before{
-  width: 50%;
-}
-.skills-content .right .mysql::before{
-  width: 70%;
-}
 
 /* team section styling */
+.teams{
+  color:#F0F6F6;
+  background-color: #B8D3B0;
+}
 .teams .title::after{
   content: "Les membres";
 }
@@ -396,7 +324,7 @@ section .title::after{
   transition: all 0.3s ease;
 }
 .teams .carousel .card:hover{
-  background: #03312E;
+  background: rgba(146, 191, 218, 0.89);
 }
 .teams .carousel .card .box{
   display: flex;
