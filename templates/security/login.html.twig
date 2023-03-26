@@ -1,20 +1,75 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background-image: url('/assets/image/background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        form {
+            background-color: #B8D3B0;
+            padding: 20px;
+            border: solid #03312E 5px;
+            border-radius: 20px;
+            max-width: 400px;
+            margin: 150px auto 0 auto;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            display: block;
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: sans-serif;
+            color: #333;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        button[type="submit"] {
+            background-color: #03312E;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: sans-serif;
+            cursor: pointer;
+            align-self: center;
+            margin: 0 auto;
+            display: block;
+        }
+        label {
+            font-size: 16px;
+            font-family: sans-serif;
+            display: flex;
+        }
+        .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: #0d5e42 solid 3px;
+            margin: 0 auto;
+            display: block;
+        }
+        .navbar{
+             padding: 15px 0;
+             background: #03312E;
+         }
+        .navbar .logo a span{
+            color: #F0F6F6;
+            transition: all 0.3s ease;
+        }
 
+    </style>
+{% endblock %}
 {% block body %}
-    <br><br><br><br>
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-
     <header >
         <nav class="navbar" >
             <div class="max-width">
@@ -36,6 +91,20 @@
             </div>
         </nav>
     </header>
+    <br><br><br><br>
+
+<form method="post">
+        <img src="/assets/image/img.png" class="avatar" alt="">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>

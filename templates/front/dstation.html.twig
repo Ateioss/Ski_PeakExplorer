@@ -4,6 +4,11 @@
 
 {% block body %}
 <style>
+<<<<<<< HEAD
+=======
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+>>>>>>> 7c8711ce0425c25cec66001cb8f5b5e441fbaa6f
     .navbar{
         padding: 15px 0;
         background: #03312E;
@@ -12,6 +17,7 @@
         color: #F0F6F6;
         transition: all 0.3s ease;
     }
+<<<<<<< HEAD
 
     .station-pres {
         display: flex;
@@ -85,6 +91,8 @@
             padding-left: 2.5px;
             font-size: 15px;
         }
+=======
+>>>>>>> 7c8711ce0425c25cec66001cb8f5b5e441fbaa6f
 </style>
     <header >
         <nav class="navbar" >
@@ -93,14 +101,18 @@
                     <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
                 </div>
                 <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">Acceuil</a></li>
                     <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
                     <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
                     {% if user == 'ROLE_ADMIN'%}
                         <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
                     {% elseif user == 'ROLE_ASTATION'%}
+<<<<<<< HEAD
                         <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Admin</a></li>
+=======
+                        <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
+>>>>>>> 7c8711ce0425c25cec66001cb8f5b5e441fbaa6f
                     {% endif %}
                 </ul>
                 <div class="menu-btn">
@@ -110,6 +122,7 @@
             </div>
         </nav>
     </header>
+<<<<<<< HEAD
     <br><br><br><br><br>
 <div class="station-head">
     <div class="station-pres">
@@ -117,6 +130,20 @@
         <p class="text-3"> Bienvenue sur la page de la station {{ station.name }}.</p>
         <p class="text-3">Description: {{ station.description }}</p>
         <p class="text-3">Location: {{ station.location }}</p>
+=======
+    <br><br><br><br>
+    <h1>la Stations {{ station.name }}</h1>
+    <p>
+        Bienvenue sur la page de la station {{ station.name }}.
+
+
+    </p>
+    <div>
+
+        <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
+        <p>{{ station.description }}</p>
+        <p>{{ station.location }}</p>
+>>>>>>> 7c8711ce0425c25cec66001cb8f5b5e441fbaa6f
     </div>
     <div class="station-img">
         <img src="/uploads/{{ station.image }}" alt="image de la station" width="350" height="266">
