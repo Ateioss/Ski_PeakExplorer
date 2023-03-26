@@ -195,6 +195,19 @@ section .title::after {
   min-height: 500px;
   font-family: "Ubuntu", sans-serif;
 }
+.mountain .home .line-container {
+  position: absolute;
+  top: 115vh;
+  left: 350px;
+  width: 70vw;
+  height: 240vh;
+  text-align: left;
+  overflow: hidden;
+}
+.mountain .home .line-container svg {
+  display: block;
+  height: 100%;
+}
 .mountain .home .pos {
   display: flex;
   flex-direction: column;

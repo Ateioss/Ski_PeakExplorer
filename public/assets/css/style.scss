@@ -160,6 +160,7 @@ section .title::after{
   filter: brightness(90%);
 }
 .mountain{
+
   .home{
     display: flex;
     flex-direction: column;
@@ -167,6 +168,19 @@ section .title::after{
     height: 240vh;
     min-height: 500px;
     font-family: 'Ubuntu', sans-serif;
+    .line-container{
+      position: absolute;
+      top: 115vh;
+      left: 350px;
+      width: 70vw;
+      height: 240vh;
+      text-align: left;
+      overflow: hidden;
+      svg{
+        display: block;
+        height: 100%;
+      }
+    }
     .pos{
       display: flex;
       flex-direction: column;
