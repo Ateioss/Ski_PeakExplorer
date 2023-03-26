@@ -3,6 +3,61 @@
 {% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
+    <style>
+        body {
+            background-image: url('/assets/image/background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+
+        }
+        main{
+            padding: 20px;
+        }
+        .navbar{
+            padding: 15px 0;
+            background: #03312E;
+        }
+        .navbar .logo a span{
+            color: #F0F6F6;
+            transition: all 0.3s ease;
+        }
+        fieldset{
+            border: 2px solid #03312E;
+            border-radius: 6px;
+            padding: 10px 20px;
+            background-color: white;
+            width: 20%;
+            font-size: 18px;
+
+        }
+        .formpiste{
+            margin-left: 250px;
+
+        }
+
+        table{
+            border: 2px solid #03312E;
+            border-radius: 6px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+        th  {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        td  {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        section{
+            padding: 0;
+        }
+        @media only screen and (max-width: 800px){
+
+        }
+    </style>
+
     <header >
         <nav class="navbar" >
             <div class="max-width">
@@ -10,11 +65,11 @@
                     <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
                 </div>
                 <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
-                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Stations</a></li>
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">Acceuil</a></li>
+                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
                     <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
-                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
 
                 </ul>
                 <div class="menu-btn">
@@ -25,17 +80,18 @@
         </nav>
     </header>
     <br><br><br><br>
-    <h1>la Stations de skis</h1>
+    <main>
+    <h1>la Stations {{ station.name }}</h1>
     <p>
-        Bienvenue sur la page d'édition des stations de ski,
+        Bienvenue sur la page d'édition de la station {{ station.name }}
         <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
         et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
 
     </p>
         <div>
-            <h3>{{ station.name }}</h3>
+
             <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
-            <p>{{ station.description }}</p>
+            <h4>{{ station.description }}</h4>
             <p>{{ station.location }}</p>
              </div>
 
@@ -79,11 +135,12 @@
 
         </tbody>
     </table>
+    <div class="formpiste">
     <h1>Pistes</h1>
     {{ form_start(form) }}
     <input type="submit" value="Enregistrer">
     {{ form_end(form) }}
-
+    </div>
     <h2> Remontée : </h2>
 <table class="table">
     <thead>
@@ -120,4 +177,5 @@
         <button type="submit">Submit</button>
     </form>
     </div>
+    </main>
 {% endblock %}

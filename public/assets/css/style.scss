@@ -87,7 +87,7 @@ section .title::after{
 }
 .navbar.sticky{
   padding: 15px 0;
-  background: #03312E;;
+  background: #03312E;
 }
 .navbar .max-width{
   display: flex;
@@ -625,6 +625,7 @@ footer span a{
 footer span a:hover{
   text-decoration: underline;
 }
+
 /* responsive media start */
 @media (max-width: 1300px) {
   .home .max-width{

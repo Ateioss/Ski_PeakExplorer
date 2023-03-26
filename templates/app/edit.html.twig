@@ -4,25 +4,101 @@
 
 {% block body %}
     <style>
+
         body {
             background-image: url('/assets/image/background.png');
             background-size: cover;
             background-repeat: no-repeat;
+
         }
-      a{
+      .acces{
           text-decoration: none;
           color: black;
+          font-size: 18px;
+          background-color: white;
+          border: 1px solid black;
+            border-radius: 5px;
+          padding: 5px;
       }
+        .navbar{
+            padding: 15px 0;
+            background: #03312E;
+        }
+        .navbar .logo a span{
+            color: #F0F6F6;
+            transition: all 0.3s ease;
+        }
 
         button{
-            background-color: #007bff;
+
             color: #fff;
-            padding: 10px;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             font-family: sans-serif;
             cursor: pointer;
+        }
+        .global{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        img{
+            width: 200px;
+            height: 200px;
+        }
+        .Domaine{
+            width: 250px;
+            height: 250px;
+
+            border-radius: 5px;
+            margin: 10px;
+            text-align: center;
+
+
+        }
+        section{
+            padding: 0;
+        }
+        @media(max-width: 1000px) {
+            .navbar {
+                height: 200px;
+            }
+            .max-width {
+                height: 180px;
+            }
+            .menu-btn img{
+                width: 100px;
+                height: 100px;
+            }
+        }
+        @media(max-width: 600px){
+
+            .Domaine{
+                width: 450px;
+                height: 450px;
+
+                border-radius: 5px;
+                margin: 10px;
+                text-align: center;
+
+
+            }
+            .Domaine h3{
+                font-size: 50px;
+            }
+            img{
+                width: 400px;
+                height: 400px;
+            }
+            .presentation{
+                width: 100%;
+                text-align: center;
+
+                font-size: 30px;
+                padding-top: 50px;
+            }
         }
     </style>
     <header >
@@ -32,11 +108,11 @@
                     <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
                 </div>
                 <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
-                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Stations</a></li>
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">Acceuil</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
-                    <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
                     <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+                    <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
+                    <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
 
                 </ul>
                 <div class="menu-btn">
@@ -47,22 +123,27 @@
         </nav>
     </header>
     <br><br><br><br>
-    <h1>les Stations de skis</h1>
+    <div class="presentation">    <h1>les Stations de skis</h1>
     <p>Bienvenue sur la page d'édition des stations de ski,
         <br>Vous pourrez ici ajouter, modifier ou supprimer des stations de ski.
         et aussi ouvrir/fermé les stations de ski en fonction de l'heure actuelle.
     </p>
+    </div>
+    <br>
+    <br>
 
-    <button><a href="{{ path('app_stationski_type') }}">Ajouter une station</a></button>
+    <button><a class="acces" href="{{ path('app_stationski_type') }}">Ajouter une station</a></button>
+    <div class="global">
     {% for stations in station  %}
-        <div>
+        <div class="Domaine">
             <h3>{{ stations.name }}</h3>
 
             <img src="/uploads/{{ stations.image }}" alt="image de la station" width="200" height="200">
-
-            <a href="{{ path('station_edit', {'id': stations.id}) }}">voir la station</a>
+            <br>
+            <a class="acces" href="{{ path('station_edit', {'id': stations.id}) }}">voir la station</a>
         </div>
 
     {% endfor %}
-    <button><a href="{{ path('app_auto' , {'id' : id})}}">Ouvrir les station</a></button>
+    </div>
+    <button><a class="acces" href="{{ path('app_auto' , {'id' : id})}}">Ouvrir les station</a></button>
 {% endblock %}
