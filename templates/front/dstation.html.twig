@@ -15,6 +15,88 @@
         color: #F0F6F6;
         transition: all 0.3s ease;
     }
+
+    .station-pres {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Ubuntu', sans-serif;
+        height: 200px;
+        justify-content: center;
+        padding-left: 100px;
+    }
+    .text-2{
+        font-size: 50px;
+    }
+    .text-3{
+        font-size: 22px;
+    }
+
+    table{
+        border: 2px solid #03312E;
+        border-radius: 6px;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        background-color: white;
+    }
+    th  {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    td  {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    section{
+        padding: 0;
+    }
+
+
+    img{
+        width: 350px;
+        height: 300px;
+        border-radius: 10%;
+        border: #03312E 10px solid;
+        box-shadow: 2px 2px 4px rgba(5, 5, 18, 0.7);
+    }
+    .station-head{
+        padding-right: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: -30%;
+    }
+    .text-2{
+        font-size: 50px;
+    }
+    .text-3{
+        font-size: 22px;
+    }
+    .table-remontee{
+        padding-left: 140px;
+        color: #0e4e36;
+    }
+    .table-piste{
+        padding-left: 140px;
+        color: #0e4e36;
+    }
+
+    @media only screen and (max-width: 800px){
+        table{
+
+            padding: 5px 5px;
+
+        }
+        th  {
+            padding-right: 2.5px;
+            padding-left: 2.5px;
+            font-size: 15px;
+        }
+        td  {
+            padding-right: 2.5px;
+            padding-left: 2.5px;
+            font-size: 15px;
+        }
+    }
 </style>
     <header >
         <nav class="navbar" >
@@ -30,6 +112,7 @@
                     {% if user == 'ROLE_ADMIN'%}
                         <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
                     {% elseif user == 'ROLE_ASTATION'%}
+                        <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Admin</a></li>
                         <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
                     {% endif %}
                 </ul>
@@ -40,68 +123,88 @@
             </div>
         </nav>
     </header>
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+        <mask id="m">
+            <g class="cloud1">
+                <rect fill="#fff" width="100%" height="801" y="799" />
+                <image xlink:href="https://assets.codepen.io/721952/cloud1Mask.jpg" width="1200" height="800"/>
+            </g>
+        </mask>
+        <image class="sky" xlink:href="https://assets.codepen.io/721952/sky.jpg"  width="1200" height="590" />
+        <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="1200" height="800"/>
+        <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="1200" height="800"/>
+        <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="1200" height="800"/>
+        <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="1200" height="800"/>
+        <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="1200" height="800"/>
+    </svg>
+    <div class="station-head">
+        <div class="station-pres">
+            <h1 class="text-2">Station {{ station.name }}</h1>
+            <p class="text-3"> Bienvenue sur la page de la station {{ station.name }}.</p>
+            <p class="text-3">Description: {{ station.description }}</p>
+            <p class="text-3">Location: {{ station.location }}</p>
+        </div>
+        <br><br><br><br>
+        <div>
+            <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
+        </div>
 
-    <br><br><br><br>
-    <h1>la Stations {{ station.name }}</h1>
-    <p>
-        Bienvenue sur la page de la station {{ station.name }}.
-
-
-    </p>
-    <div>
-
-        <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
-        <p>{{ station.description }}</p>
-        <p>{{ station.location }}</p>
     </div>
-    <h2> Piste : </h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Difficulté</th>
-            <th>Statut</th>
-            <th>Horaire d'ouverture</th>
-            <th>Horaire de fermeture</th>
-            <th>fermeture expectionelle</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for pistes in piste %}
+
+
+
+
+
+    <section class="table-piste">
+        <h2> Piste : </h2>
+        <table class="table">
+            <thead>
             <tr>
-                <td>{{ pistes.name }}</td>
-                <td>{{ pistes.difficulte }}</td>
-                <td>{% if pistes.ouverture %} Ouverte {% else %} Fermée {% endif %}</td>
-                <td>{{ pistes.horaireOuverture|date('H:i') }}</td>
-                <td>{{ pistes.horaireFermeture|date('H:i') }}</td>
-                <td>{{ pistes.fermetureexpectionelle }}</td>
+                <th>Nom</th>
+                <th>Difficulté</th>
+                <th>Statut</th>
+                <th>Horaire d'ouverture</th>
+                <th>Horaire de fermeture</th>
+                <th>fermeture expectionelle</th>
             </tr>
-        {% endfor %}
+            </thead>
+            <tbody>
+            {% for pistes in piste %}
+                <tr>
+                    <td>{{ pistes.name }}</td>
+                    <td>{{ pistes.difficulte }}</td>
+                    <td>{% if pistes.ouverture %} Ouverte {% else %} Fermée {% endif %}</td>
+                    <td>{{ pistes.horaireOuverture|date('H:i') }}</td>
+                    <td>{{ pistes.horaireFermeture|date('H:i') }}</td>
+                    <td>{{ pistes.fermetureexpectionelle }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
 
-        </tbody>
-    </table>
-    <h2> Remontée : </h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Statut</th>
-            <th>Horaire d'ouverture</th>
-            <th>Horaire de fermeture</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for remonte in remontee %}
+
+    <section class="table-remontee">
+        <h2> Remontée :</h2>
+        <table class="table">
+            <thead>
             <tr>
-                <td>{{ remonte.name }}</td>
-                <td>{% if remonte.open %} Ouverte {% else %} Fermée {% endif %}</td>
-                <td>{{ remonte.opentime|date('H:i') }}</td>
-                <td>{{ remonte.closetime|date('H:i') }}</td>
-
-
+                <th>Nom</th>
+                <th>Statut</th>
+                <th>Horaire d'ouverture</th>
+                <th>Horaire de fermeture</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-{% endblock %}
+            </thead>
+            <tbody>
+            {% for remonte in remontee %}
+                <tr>
+                    <td>{{ remonte.name }}</td>
+                    <td>{% if remonte.open %} Ouverte {% else %} Fermée {% endif %}</td>
+                    <td>{{ remonte.opentime|date('H:i') }}</td>
+                    <td>{{ remonte.closetime|date('H:i') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endblock %}
