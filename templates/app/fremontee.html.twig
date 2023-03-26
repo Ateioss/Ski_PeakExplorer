@@ -80,7 +80,9 @@
     <div class="form">
         <h3> Ajout de pistes</h3>
         <form method="post" action="{{ path('add_pistes' , {id: id}) }}">
+            <label for="name">Nom de la piste</label>
             <input name="name" type="text">
+            <label for="name">Difficulté</label>
             <input name="difficulte" type="text">
             <input name="submit" type="submit" value="Envoyer">
 
@@ -89,6 +91,7 @@
     <div class="form">
         <h3> Ajout de remontées</h3>
         <form method="post" action="{{ path('add_remontees' , {id: id}) }}">
+            <label for="name">Nom de la remontée</label>
             <input name="name" type="text">
             <input name="submit" type="submit" value="Envoyer">
 
