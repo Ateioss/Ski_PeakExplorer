@@ -191,16 +191,16 @@ section .title::after {
   display: flex;
   flex-direction: column;
   gap: 300px;
-  height: 240vh;
+  height: 270vh;
   min-height: 500px;
   font-family: "Ubuntu", sans-serif;
 }
 .mountain .home .line-container {
   position: absolute;
-  top: 115vh;
-  left: 350px;
-  width: 70vw;
-  height: 240vh;
+  top: 100vh;
+  left: 290px;
+  width: 75vw;
+  height: 310vh;
   text-align: left;
   overflow: hidden;
 }
@@ -296,6 +296,8 @@ section .title::after {
   font-size: 25px;
   padding: 12px 36px;
   margin-top: 20px;
+  position: absolute;
+  z-index: 2;
   font-weight: 400;
   border-radius: 6px;
   border: 2px solid #B8D3B0;
