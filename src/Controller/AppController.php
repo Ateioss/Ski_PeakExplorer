@@ -35,7 +35,8 @@ class AppController extends AbstractController
         }
 
         $user = $this->getUser();
-        $Ruser = $user->getRoles();
+        $ruser = $user->getRoles();
+        $Ruser = $ruser[0];
 
         return $this->render('app/index.html.twig', [
             'controller_name' => 'AppController',

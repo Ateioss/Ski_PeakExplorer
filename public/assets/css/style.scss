@@ -21,6 +21,12 @@ html{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.animate__animated.animate__fadeInUp {
+  --animate-duration: 5s;
+}
+.animate__animated.animate__backInLeft {
+  animation-delay: 3s;
+}
 /* all similar content styling codes */
 section{
   padding: 100px 0;
@@ -154,6 +160,7 @@ section .title::after{
   filter: brightness(90%);
 }
 .mountain{
+
   .home{
     display: flex;
     flex-direction: column;
@@ -161,6 +168,19 @@ section .title::after{
     height: 240vh;
     min-height: 500px;
     font-family: 'Ubuntu', sans-serif;
+    .line-container{
+      position: absolute;
+      top: 115vh;
+      left: 350px;
+      width: 70vw;
+      height: 240vh;
+      text-align: left;
+      overflow: hidden;
+      svg{
+        display: block;
+        height: 100%;
+      }
+    }
     .pos{
       display: flex;
       flex-direction: column;
