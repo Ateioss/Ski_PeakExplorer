@@ -122,6 +122,8 @@ class AppController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/edit/station/{id}', name: 'station_edit')]
 
     public function Sedit(StationSkiRepository $stationSkiRepository, $id, PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository, Request $request, EntityManagerInterface $entityManager): Response
@@ -368,7 +370,7 @@ class AppController extends AbstractController
         $remontee->setName($request->request->get('nom'));
         $ouverture = new \DateTime('8:00');
         $fermeture = new \DateTime('18:00');
-        $remontee->setOpen($ouverture);
+        $remontee->setOpenTime($ouverture);
         $remontee->setCloseTime($fermeture);
         $remontee->setOpen(true);
         $managerRegistry->getManager()->persist($remontee);
