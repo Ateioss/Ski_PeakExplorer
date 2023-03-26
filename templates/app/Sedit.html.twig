@@ -15,9 +15,11 @@
             <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
             <p>{{ station.description }}</p>
             <p>{{ station.location }}</p>
-        </div>
+             </div>
 
-     <a href="{{ path ('fadd_remotee', {id : station.id}) }}"><button> Ajouter des pistes ou des remontees</button></a>
+    <a href="{{ path ('app_stationskimodif', {id : station.id}) }}"><button> modifier la station</button></a>
+
+    <a href="{{ path ('fadd_remotee', {id : station.id}) }}"><button> Ajouter des pistes ou des remontees</button></a>
 
 
     <h2> Piste : </h2>
