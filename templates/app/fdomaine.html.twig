@@ -40,7 +40,12 @@
             font-family: sans-serif;
             cursor: pointer;
         }
+        .bodys{
+            padding-top : 110px;
+            height: auto;
+        }
     </style>
+    <div class="bodys">
     <h1>les Domaines de skis</h1>
     <p>
         Bienvenue sur la page des domaines de skis
@@ -49,4 +54,6 @@
     {{ form_row(form.name) }}
     {{ form_row(form.image) }}
     {{ form_end(form) }}
+
+    </div>
 {% endblock %}
