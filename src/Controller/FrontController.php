@@ -16,9 +16,22 @@ class FrontController extends AbstractController
     public function index(GdomaineRepository $gdomaineRepository): Response
     {
         $domaine = $gdomaineRepository->findAll();
+        if ($this->getUser() == null) {
+            return $this->render('front/domaine.html.twig', [
+                'domaine' => $domaine,
+                'user' => 'null',
+            ]);
+        }
+
+        $user = $this->getUser();
+        $ruser = $user->getRoles();
+        $Ruser = $ruser[0];
+
+
 
             return $this->render('front/domaine.html.twig', [
                 'domaine' => $domaine,
+                'user' => $Ruser,
 
             ]);
         }
@@ -27,9 +40,21 @@ class FrontController extends AbstractController
     public function stations(StationSkiRepository $stationSkiRepository, $id): Response
     {
         $station = $stationSkiRepository->findBy(['domain' => $id]);
+        if ($this->getUser() == null) {
+            return $this->render('front/station.html.twig', [
+                'station' => $station,
+                'user' => 'null',
+            ]);
+        }
+
+        $user = $this->getUser();
+        $ruser = $user->getRoles();
+        $Ruser = $ruser[0];
+
 
         return $this->render('front/station.html.twig', [
             'station' => $station,
+            'user' => $Ruser,
 
         ]);
     }
@@ -38,12 +63,17 @@ class FrontController extends AbstractController
     #[Route('/station/{id}', name: 'app_dstation')]
     public function station(StationSkiRepository $stationSkiRepository, $id , PisteRepository $pisteRepository, RemonteeRepository $remonteeRepository): Response
     {
+
         $station = $stationSkiRepository->findOneBy(array('id' => $id));
 
         $piste = $pisteRepository->findBy(array('station' => $id));
         $remontee = $remonteeRepository->findBy(array('station' => $id));
         $Hpiste = $pisteRepository->findOneBy(array('station' => $id));
         $Hremontee = $remonteeRepository->findOneBy(array('station' => $id));
+
+
+
+
         if ($Hpiste != null && $Hremontee != null) {
 
             $Popen = $Hpiste->getHoraireOuverture();
@@ -56,6 +86,22 @@ class FrontController extends AbstractController
 
             $Rclose = $Hremontee->getCloseTime();
             $RChour = $Rclose->format('H:i:s');
+            if ($this->getUser() == null) {
+                return $this->render('front/dstation.html.twig', [
+                    'station' => $station,
+                    'piste' => $piste,
+                    'remontee' => $remontee,
+                    'POheure' => $POheure,
+                    'PChour' => $PChour,
+                    'ROhour' => $ROhour,
+                    'RChour' => $RChour,
+                    'user' => 'null',
+                ]);
+            }
+
+            $user = $this->getUser();
+            $ruser = $user->getRoles();
+            $Ruser = $ruser[0];
 
             return $this->render('front/dstation.html.twig', [
                 'station' => $station,
@@ -65,6 +111,7 @@ class FrontController extends AbstractController
                 'PChour' => $PChour,
                 'ROhour' => $ROhour,
                 'RChour' => $RChour,
+                'user' => $Ruser,
 
             ]);
 
@@ -75,12 +122,27 @@ class FrontController extends AbstractController
 
             $Pclose = $Hpiste->getHoraireFermeture();
             $PChour = $Pclose->format('H:i:s');
+            if ($this->getUser() == null) {
+                return $this->render('front/dstation.html.twig', [
+                    'station' => $station,
+                    'piste' => $piste,
+                    'remontee' => $remontee,
+                    'POheure' => $POheure,
+                    'PChour' => $PChour,
+                    'user' => 'null',
+                ]);
+            }
+
+            $user = $this->getUser();
+            $ruser = $user->getRoles();
+            $Ruser = $ruser[0];
             return $this->render('front/dstation.html.twig', [
                 'station' => $station,
                 'piste' => $piste,
                 'remontee' => $remontee,
                 'POheure' => $POheure,
                 'PChour' => $PChour,
+                'user' => $Ruser,
 
             ]);
         }
@@ -90,19 +152,51 @@ class FrontController extends AbstractController
 
             $Rclose = $Hremontee->getCloseTime();
             $RChour = $Rclose->format('H:i:s');
+
+            if ($this->getUser() == null) {
+                return $this->render('front/dstation.html.twig', [
+                    'station' => $station,
+                    'piste' => $piste,
+                    'remontee' => $remontee,
+
+                    'ROhour' => $ROhour,
+                    'RChour' => $RChour,
+                    'user' => 'null',
+                ]);
+            }
+
+            $user = $this->getUser();
+            $ruser = $user->getRoles();
+            $Ruser = $ruser[0];
+
             return $this->render('front/dstation.html.twig', [
                 'station' => $station,
                 'piste' => $piste,
                 'remontee' => $remontee,
                 'ROhour' => $ROhour,
                 'RChour' => $RChour,
+                'user' => $Ruser,
 
             ]);
         }
+        if ($this->getUser() == null) {
+            return $this->render('front/dstation.html.twig', [
+                'station' => $station,
+                'piste' => $piste,
+                'remontee' => $remontee,
+                'user' => 'null',
+            ]);
+        }
+
+        $user = $this->getUser();
+        $ruser = $user->getRoles();
+        $Ruser = $ruser[0];
+
         return $this->render('front/dstation.html.twig', [
             'station' => $station,
             'piste' => $piste,
             'remontee' => $remontee,
+            'user' => $Ruser,
 
         ]);
 

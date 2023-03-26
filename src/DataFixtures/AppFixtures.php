@@ -45,6 +45,18 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
+        $admin = new User();
+        $admin->setEmail('Philippe@example.com');
+        $admin->setPassword($this->passwordHasher->hashPassword($admin, 'password'));
+        $admin->setFirstname('Philippe');
+        $admin->setLastname('Lafontaine');
+
+        $admin->setRoles(['ROLE_ASTATION']);
+
+        $manager->persist($admin);
+
+        $manager->flush();
+
         //Créons un domaine !
 
         $domain = new Gdomaine();

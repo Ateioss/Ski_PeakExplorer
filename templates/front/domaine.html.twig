@@ -90,10 +90,46 @@
                     <img src="/uploads/{{ domaines.image }}" alt="image de la station" width="350" height="266" class="card-img">
                     <a href="{{ path('app_Station',{'id': domaines.id}) }}" class="card-link" >voir la station</a>
                 </div>
+<<<<<<< HEAD
             {% endfor %}
         </div>
     </section>
 </main>
+=======
+                <ul class="menu">
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
+                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+                    <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
+                    <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
+                    {% if user == 'ROLE_ADMIN'%}
+                        <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
+                    {% elseif user == 'ROLE_ASTATION'%}
+                        <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Admin</a></li>
+                    {% endif %}
+                </ul>
+                <div class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                    <img src="public/assets/images/menu.png">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br><br><br><br>
+
+    <h1>les Domaines de skis</h1>
+    <p>
+        Bienvenue sur la page des domaines de skis
+
+    </p>
+    <div class="global">
+        {% for domaines in domaine  %}
+            <div>
+                <h3>{{ domaines.name }}</h3>
+                <img src="/uploads/{{ domaines.image }}" alt="image de la station" width="200" height="200">
+                <br>
+                <a href="{{ path('app_Station',{'id': domaines.id}) }}">voir la station</a>
+            </div>
+>>>>>>> 19f745f916ccdd571e958c6a70883220d983272e
 
 
 

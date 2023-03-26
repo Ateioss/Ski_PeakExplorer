@@ -4,6 +4,7 @@
 
 {% block body %}
 <style>
+<<<<<<< HEAD
     *{
         font-family: 'Ubuntu', sans-serif;
         background-image: url("public/assets/image/background.png");
@@ -76,6 +77,35 @@
 
 </style>
 
+=======
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    <header >
+        <nav class="navbar" >
+            <div class="max-width">
+                <div class="logo">
+                    <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
+                </div>
+                <ul class="menu">
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
+                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
+                    <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
+                    <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
+                    {% if user == 'ROLE_ADMIN'%}
+                        <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
+                    {% elseif user == 'ROLE_ASTATION'%}
+                        <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Admin</a></li>
+                    {% endif %}
+                </ul>
+                <div class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                    <img src="public/assets/images/menu.png">
+                </div>
+            </div>
+        </nav>
+    </header>
+>>>>>>> 19f745f916ccdd571e958c6a70883220d983272e
     <br><br><br><br><br>
 
 <div class="domaine-pres">
