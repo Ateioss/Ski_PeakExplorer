@@ -16,7 +16,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #99DBEA;
+  background: #7DA0AD;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -378,7 +378,7 @@ section .title::after {
 
 /* about section styling */
 .about .title::after {
-  content: "Que suis je";
+  content: "Que faisons nous ?";
 }
 
 .about .about-content .left {
@@ -431,7 +431,7 @@ section .title::after {
 /* services section styling */
 .services {
   color: #F0F6F6;
-  background-color: #0f172a;
+  background-color: #B8D3B0;
   margin-top: -12%;
 }
 .services .games {
@@ -464,7 +464,7 @@ section .title::after {
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 10px 10px 20px #360b42, -10px -10px 20px #360b42;
+  box-shadow: 10px 10px 20px #03312E, -10px -10px 20px #03312E;
 }
 
 .property-image {
@@ -554,7 +554,7 @@ section .title::after {
 /* team section styling */
 .teams {
   color: #F0F6F6;
-  background-color: #B8D3B0;
+  background-color: #03312E;
 }
 
 .teams .title::after {
@@ -597,7 +597,7 @@ section .title::after {
   width: 150px;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid crimson;
+  border: 5px solid #B8D3B0;
   transition: all 0.3s ease;
 }
 
@@ -616,7 +616,7 @@ section .title::after {
   margin: 0 5px;
   outline: none !important;
   border-radius: 50%;
-  border: 2px solid crimson !important;
+  border: 2px solid #B8D3B0 !important;
   transition: all 0.3s ease;
 }
 
@@ -627,7 +627,7 @@ section .title::after {
 
 .owl-dot.active,
 .owl-dot:hover {
-  background: crimson !important;
+  background: #B8D3B0 !important;
 }
 
 /* contact section styling */
