@@ -858,9 +858,19 @@ footer span a:hover {
     margin-bottom: 20px;
   }
   .skills .skills-content .column,
-  .contact .contact-content .column {
+.contact .contact-content .column {
     width: 100%;
     margin-bottom: 35px;
+  }
+  .services {
+    color: #F0F6F6;
+    background-color: #B8D3B0;
+  }
+  .services .games {
+    margin-top: 15%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
 @media (max-width: 690px) {
@@ -898,6 +908,16 @@ footer span a:hover {
   .services .serv-content .card {
     width: 100%;
   }
+  .services {
+    color: #F0F6F6;
+    background-color: #B8D3B0;
+  }
+  .services .games {
+    margin-top: 15%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 @media (min-width: 170px) and (max-width: 500px) {
   .mountain .line-container {
@@ -929,14 +949,14 @@ footer span a:hover {
     display: none;
   }
   .about .about-content .right .text,
-  .skills .skills-content .left .text {
+.skills .skills-content .left .text {
     font-size: 19px;
   }
   .contact .right form .fields {
     flex-direction: column;
   }
   .contact .right form .name,
-  .contact .right form .email {
+.contact .right form .email {
     margin: 0;
   }
   .scroll-up-btn {
@@ -946,6 +966,16 @@ footer span a:hover {
     width: 35px;
     font-size: 23px;
     line-height: 38px;
+  }
+  .services {
+    color: #F0F6F6;
+    background-color: #B8D3B0;
+  }
+  .services .games {
+    margin-top: 15%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
 

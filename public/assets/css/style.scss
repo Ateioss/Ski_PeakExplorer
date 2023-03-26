@@ -806,6 +806,16 @@ footer span a:hover{
     width: 100%;
     margin-bottom: 35px;
   }
+  .services{
+    color:#F0F6F6;
+    background-color: #B8D3B0;
+    .games{
+      margin-top: 15%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
 }
 @media (max-width: 690px) {
   .max-width{
@@ -853,6 +863,16 @@ footer span a:hover{
   }
   .services .serv-content .card{
     width: 100%;
+  }
+  .services{
+    color:#F0F6F6;
+    background-color: #B8D3B0;
+    .games{
+      margin-top: 15%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 }
 @media  (min-width: 170px) and (max-width: 500px) {
@@ -915,5 +935,15 @@ footer span a:hover{
     width: 35px;
     font-size: 23px;
     line-height: 38px;
+  }
+  .services{
+    color:#F0F6F6;
+    background-color: #B8D3B0;
+    .games{
+      margin-top: 15%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 }
