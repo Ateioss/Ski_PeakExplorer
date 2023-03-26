@@ -790,7 +790,7 @@ footer span a:hover {
     margin-bottom: 20px;
   }
   .skills .skills-content .column,
-.contact .contact-content .column {
+  .contact .contact-content .column {
     width: 100%;
     margin-bottom: 35px;
   }
@@ -861,14 +861,14 @@ footer span a:hover {
     display: none;
   }
   .about .about-content .right .text,
-.skills .skills-content .left .text {
+  .skills .skills-content .left .text {
     font-size: 19px;
   }
   .contact .right form .fields {
     flex-direction: column;
   }
   .contact .right form .name,
-.contact .right form .email {
+  .contact .right form .email {
     margin: 0;
   }
   .scroll-up-btn {
