@@ -355,8 +355,8 @@ class AppController extends AbstractController
         $remontee->setName($request->request->get('nom'));
         $ouverture = new \DateTime('8:00');
         $fermeture = new \DateTime('18:00');
-        $remontee->setHoraireOuverture($ouverture);
-        $remontee->setHoraireFermeture($fermeture);
+        $remontee->setOpen($ouverture);
+        $remontee->setCloseTime($fermeture);
         $remontee->setOpen(true);
         $managerRegistry->getManager()->persist($remontee);
         $managerRegistry->getManager()->flush();
