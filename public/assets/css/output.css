@@ -434,53 +434,121 @@ section .title::after {
   background-color: #0f172a;
   margin-top: -12%;
 }
-
-.services .title::before,
-.teams .title::before {
-  background: #F0F6F6;
+.services .games {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.services .games .center {
+  width: 100%;
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.services .games .center .property-card {
+  height: 18em;
+  width: 14em;
+  margin: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 10px 10px 20px #360b42, -10px -10px 20px #360b42;
 }
 
-.services .title::after {
-  background: #ffffff;
-  content: "what i provide";
+.property-image {
+  height: 18em;
+  width: 14em;
+  padding: 1em 2em;
+  position: Absolute;
+  top: 0px;
+  -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  background-image: url("https://www.lexpress.fr/resizer/MXhnncu5gvxKY9KXdKlKuio55oc=/970x548/cloudfront-eu-central-1.images.arcpublishing.com/lexpress/DYRFZXRSPNHTHBVJCDS2DHSG6Y.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.services .serv-content .card {
-  width: calc(33% - 20px);
-  background: #222;
+.property-image {
+  background-image: url("https://edito.seloger.com/sites/default/files/styles/480x/public/images/web/2021-12/meribel-station-ski-savoie-seloger.jpg?itok=l4_JVEa3");
+}
+
+.property-image--mk {
+  background-image: url("https://www.outside.fr/wp-content/uploads/2019/03/espace-killy-atelier-novat.jpg");
+}
+
+.property-image2--mk {
+  background-image: url("https://i.ytimg.com/vi/vrpRlgmaJqw/maxresdefault.jpg");
+}
+
+.property-description {
+  background-color: #7DA0AD;
+  height: 0em;
+  width: 14em;
+  position: absolute;
+  bottom: 0em;
+  -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 0px 1em;
   text-align: center;
-  border-radius: 6px;
-  padding: 20px 25px;
+}
+
+.property-social-icons {
+  width: 1em;
+  height: 1em;
+  background-color: white;
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  box-shadow: 0 8px 16px rgb(0, 0, 0);
+  -webkit-transition: all 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.property-card:hover .property-description {
+  height: 12em;
+  padding: 0.5em 1em;
+}
+
+.property-card:hover .property-image {
+  height: 6em;
+}
+
+.property-card:hover .property-social-icons {
+  background-color: black;
+}
+
+.property-card:hover .property-social-icons:hover {
+  background-color: blue;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.services .serv-content .card:hover {
-  background: #03312E;
+.property-image-title {
+  text-align: center;
+  position: Relative;
+  top: 30%;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
+  color: black;
+  font-size: 1.2em;
 }
 
-.services .serv-content .card .box {
-  transition: all 0.3s ease;
-}
-
-.services .serv-content .card:hover .box {
-  transform: scale(1.05);
-}
-
-.services .serv-content .card i {
-  font-size: 50px;
-  color: #03312E;
-  transition: color 0.3s ease;
-}
-
-.services .serv-content .card:hover i {
-  color: #F0F6F6;
-}
-
-.services .serv-content .card .text {
-  font-size: 25px;
-  font-weight: 500;
-  margin: 10px 0 7px 0;
+.property-card:hover .property-image-title {
+  opacity: 1;
 }
 
 /* team section styling */
