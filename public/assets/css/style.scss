@@ -21,6 +21,12 @@ html{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.animate__animated.animate__fadeInUp {
+  --animate-duration: 5s;
+}
+.animate__animated.animate__backInLeft {
+  animation-delay: 3s;
+}
 /* all similar content styling codes */
 section{
   padding: 100px 0;
