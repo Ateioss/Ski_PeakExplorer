@@ -27,9 +27,19 @@ class AppController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(): Response
     {
+        if ($this->getUser() == null) {
+            return $this->render('app/index.html.twig', [
+                'controller_name' => 'AppController',
+                'user' => 'null',
+            ]);
+        }
+
+        $user = $this->getUser();
+        $Ruser = $user->getRoles();
 
         return $this->render('app/index.html.twig', [
             'controller_name' => 'AppController',
+            'user' => $Ruser,
         ]);
     }
 
@@ -117,8 +127,10 @@ class AppController extends AbstractController
     {
         $user = $this->getUser();
         $Ruser = $user->getRoles();
+        $Iduser = $user->getId();
+        $Thestation = $stationSkiRepository->findOneBy(array('id' => $id));
 
-        if ($Ruser[0] == 'ROLE_ADMIN' || $Ruser[0] == 'ROLE_ASTATION'){
+        if ( $Ruser[0] == 'ROLE_ADMIN' || $Ruser[0] == 'ROLE_ASTATION' && $Iduser == $Thestation->getOwner()->getId()){
 
         $form = $this->createFormBuilder()
             ->add('piste_status', ChoiceType::class, [
