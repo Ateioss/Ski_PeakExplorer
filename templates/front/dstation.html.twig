@@ -53,7 +53,7 @@
     }
 
 
-    img{
+    .card-img{
         width: 350px;
         height: 300px;
         border-radius: 10%;
@@ -74,16 +74,42 @@
     }
     .table-remontee{
         padding-left: 140px;
+        padding-right: 140px;
+
     }
     .table-piste{
         padding-left: 140px;
+        padding-right: 140px;
     }
 
     @media only screen and (max-width: 800px){
+
+        .card-img{
+            height: 175px;
+            width: 225px;
+        }
+        #card-subtitle{
+            display: none;
+        }
+        .station-pres{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        .table-remontee{
+            padding: 5px;
+
+        }
+        .table-piste{
+            padding: 5px;
+
+        }
+
         table{
-
+            font-size: 6px;
             padding: 5px 5px;
-
         }
         th  {
             padding-right: 2.5px;
@@ -95,7 +121,15 @@
             padding-left: 2.5px;
             font-size: 15px;
         }
+        .text-2{
+            font-size: 20px;
+        }
+        .text-3{
+            font-size: 15px;
+        }
+
     }
+
 </style>
     <header >
         <nav class="navbar" >
@@ -104,14 +138,13 @@
                     <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
                 </div>
                 <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">Acceuil</a></li>
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
                     <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
                     <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
                     {% if user == 'ROLE_ADMIN'%}
                         <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
                     {% elseif user == 'ROLE_ASTATION'%}
-                        <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Admin</a></li>
                         <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
                     {% endif %}
                 </ul>
@@ -126,13 +159,13 @@
     <div class="station-head">
         <div class="station-pres">
             <h1 class="text-2">Station {{ station.name }}</h1>
-            <p class="text-3"> Bienvenue sur la page de la station {{ station.name }}.</p>
+            <p class="text-3" id="card-subtitle"> Bienvenue sur la page de la station {{ station.name }}.</p>
             <p class="text-3">Description: {{ station.description }}</p>
             <p class="text-3">Location: {{ station.location }}</p>
         </div>
         <br><br><br><br>
         <div>
-            <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
+            <img src="/uploads/{{ station.image }}" alt="image de la station"  class="card-img">
         </div>
     </div>
 

@@ -4,9 +4,6 @@
 
 {% block body %}
 <style>
-
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     .navbar{
         padding: 15px 0;
         background: #03312E;
@@ -91,6 +88,32 @@
     }
     .text-3{
         font-size: 22px;
+    }
+    @media only screen and (max-width: 600px){
+
+
+        .text-2{
+            font-size: 20px;
+        }
+        .text-3{
+            font-size: 15px;
+        }
+        .global-cards{
+            padding-left: 1px;
+            padding-right: 1px;
+        }
+        .domaine-pres{
+            padding-left: 30px;
+
+        }
+    }
+    @media only screen and (max-width: 430px) {
+
+        .card {
+            height: 275px;
+            width: 225px;
+            padding-bottom: 350px;
+        }
     }
 
 </style>
