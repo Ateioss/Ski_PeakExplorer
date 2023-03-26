@@ -16,3 +16,7 @@ Faire un ``` php bin/console doctrine:database:create ``` pour créé la databas
 Faire un ``` php bin/console make:migration ``` pour initialisé une migration puis la migré avec la commande suivant
 
 ``` php bin/console doctrine:migrations:migrate``` ou ```php bin/console d:m:m ``` 
+
+Ensuite pour importé les données pré-créer utiliser la commande suite 
+
+``` php bin/console doctrine:fixtures:load```  ou  ``` php bin/console d:f:l```
