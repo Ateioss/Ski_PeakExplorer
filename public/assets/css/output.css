@@ -190,15 +190,15 @@ section .title::after {
 .mountain .home {
   display: flex;
   flex-direction: column;
-  gap: 300px;
-  height: 270vh;
+  gap: 270px;
+  height: 290vh;
   min-height: 500px;
   font-family: "Ubuntu", sans-serif;
 }
 .mountain .home .line-container {
   position: absolute;
   top: 100vh;
-  left: 290px;
+  left: 330px;
   width: 75vw;
   height: 310vh;
   text-align: left;
@@ -255,7 +255,6 @@ section .title::after {
 .mountain .home .pos .home-image {
   position: absolute;
   margin-left: 65%;
-  margin-top: -5%;
 }
 .mountain .home .pos .home-image img {
   width: 450px;
@@ -322,11 +321,12 @@ section .title::after {
 .mountain .home .pose {
   display: flex;
   flex-direction: column;
-  height: 60vh;
+  height: 100vh;
   color: #03312E;
   min-height: 500px;
   font-family: "Ubuntu", sans-serif;
   margin-top: -20%;
+  background: #7DA0AD;
 }
 .mountain .home .pose .max-width {
   margin: 7% 0 auto 30px;
@@ -366,6 +366,7 @@ section .title::after {
 .mountain .home .pose .home-image {
   position: absolute;
   margin-left: 65%;
+  margin-top: 5%;
 }
 .mountain .home .pose .home-image img {
   width: 450px;
@@ -431,6 +432,7 @@ section .title::after {
 .services {
   color: #F0F6F6;
   background-color: #0f172a;
+  margin-top: -12%;
 }
 
 .services .title::before,
@@ -741,6 +743,9 @@ footer span a:hover {
     margin: 20px 0;
     font-size: 25px;
   }
+  .mountain .line-container {
+    display: none;
+  }
   .mountain .home {
     display: flex;
     flex-direction: column;
@@ -794,6 +799,9 @@ footer span a:hover {
   .max-width {
     padding: 0 23px;
   }
+  .mountain .line-container {
+    display: none;
+  }
   .mountain .home {
     display: flex;
     flex-direction: column;
@@ -824,6 +832,9 @@ footer span a:hover {
   }
 }
 @media (min-width: 170px) and (max-width: 500px) {
+  .mountain .line-container {
+    display: none;
+  }
   .mountain .home {
     display: flex;
     flex-direction: column;
