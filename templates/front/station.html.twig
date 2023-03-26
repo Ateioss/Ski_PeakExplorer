@@ -8,6 +8,15 @@
         font-family: 'Ubuntu', sans-serif;
         background-image: url("public/assets/image/background.png");
     }
+    .navbar{
+        padding: 15px 0;
+        background: #03312E;
+    }
+    .navbar .logo a span{
+        color: #F0F6F6;
+        transition: all 0.3s ease;
+    }
+
     section{
         display: flex;
         flex-direction: column;
@@ -117,5 +126,6 @@
             <a href="{{ path('app_dstation',{'id': stations.id}) }}" class="card-link" >voir la station</a>
         </div>
     {% endfor %}
+</div>
 </div>
 {% endblock %}

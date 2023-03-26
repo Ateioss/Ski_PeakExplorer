@@ -4,8 +4,87 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .navbar{
+        padding: 15px 0;
+        background: #03312E;
+    }
+    .navbar .logo a span{
+        color: #F0F6F6;
+        transition: all 0.3s ease;
+    }
+
+    .station-pres {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Ubuntu', sans-serif;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 100px;
+    }
+    .text-2{
+        font-size: 50px;
+    }
+    .text-3{
+        font-size: 22px;
+    }
+
+    table{
+        border: 2px solid #03312E;
+        border-radius: 6px;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        background-color: white;
+    }
+    th  {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    td  {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    section{
+        padding: 0;
+    }
+
+
+    img{
+        width: 350px;
+        height: 300px;
+        border-radius: 10%;
+        border: #03312E 10px solid;
+        box-shadow: 2px 2px 4px rgba(5, 5, 18, 0.7);
+    }
+    .station-head{
+        padding-right: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .text-2{
+        font-size: 50px;
+    }
+    .text-3{
+        font-size: 22px;
+    }
+    @media only screen and (max-width: 800px){
+        table{
+
+            padding: 5px 5px;
+
+        }
+        th  {
+            padding-right: 2.5px;
+            padding-left: 2.5px;
+            font-size: 15px;
+        }
+        td  {
+            padding-right: 2.5px;
+            padding-left: 2.5px;
+            font-size: 15px;
+        }
 </style>
     <header >
         <nav class="navbar" >
@@ -32,45 +111,22 @@
         </nav>
     </header>
     <br><br><br><br><br>
-    <h1>la Station {{ station.name }}</h1>
-
-    <header >
-        <nav class="navbar" >
-            <div class="max-width">
-                <div class="logo">
-                    <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
-                </div>
-                <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
-                    <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
-                    <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
-                    <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
-                    {% if user == 'ROLE_ADMIN'%}
-                        <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
-                    {% elseif user == 'ROLE_ASTATION'%}
-                        <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Admin</a></li>
-                    {% endif %}
-                </ul>
-                <div class="menu-btn">
-                    <i class="fas fa-bars"></i>
-                    <img src="public/assets/images/menu.png">
-                </div>
-            </div>
-        </nav>
-    </header>
-    <br><br><br><br>
-    <h1>la Stations {{ station.name }}</h1>
-    <p>
-        Bienvenue sur la page de la station {{ station.name }}.
-
-
-    </p>
-    <div>
-
-        <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
-        <p>{{ station.description }}</p>
-        <p>{{ station.location }}</p>
+<div class="station-head">
+    <div class="station-pres">
+        <h1 class="text-2">Station {{ station.name }}</h1>
+        <p class="text-3"> Bienvenue sur la page de la station {{ station.name }}.</p>
+        <p class="text-3">Description: {{ station.description }}</p>
+        <p class="text-3">Location: {{ station.location }}</p>
     </div>
+    <div class="station-img">
+        <img src="/uploads/{{ station.image }}" alt="image de la station" width="350" height="266">
+    </div>
+</div>
+
+
+
+
+
     <h2> Piste : </h2>
     <table class="table">
         <thead>
@@ -94,10 +150,11 @@
                 <td>{{ pistes.fermetureexpectionelle }}</td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
-    <h2> Remontée : </h2>
+
+
+    <h2> Remontée :</h2>
     <table class="table">
         <thead>
         <tr>
@@ -114,11 +171,8 @@
                 <td>{% if remonte.open %} Ouverte {% else %} Fermée {% endif %}</td>
                 <td>{{ remonte.opentime|date('H:i') }}</td>
                 <td>{{ remonte.closetime|date('H:i') }}</td>
-
-
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}
