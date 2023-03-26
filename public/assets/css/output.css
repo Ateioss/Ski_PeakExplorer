@@ -183,14 +183,12 @@ section .title::after {
 /* home section styling */
 .home {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 300px;
-  background: url("https://www.pinterest.com/biozedhossain1/web-design-school/") no-repeat center;
-  height: 100vh;
+  height: 300vh;
   color: #03312E;
+  background-color: #F0F6F6;
   min-height: 500px;
-  background-size: cover;
-  background-attachment: fixed;
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -239,12 +237,11 @@ section .title::after {
 .home-image {
   position: absolute;
   margin-left: 55%;
-  margin-top: 2%;
 }
 .home-image img {
   width: 450px;
   height: 400px;
-  border-radius: 50%;
+  border-radius: 10%;
   border: #03312E 10px solid;
   box-shadow: 2px 2px 4px rgba(5, 5, 18, 0.7);
 }
