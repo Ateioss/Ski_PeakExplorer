@@ -5,24 +5,11 @@
 {% block body %}
 <style>
 
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .navbar{
-        padding: 15px 0;
-        background: #03312E;
-    }
-    .navbar .logo a span{
-        color: #F0F6F6;
-        transition: all 0.3s ease;
-    }
-
     .station-pres {
         display: flex;
         flex-direction: column;
         font-family: 'Ubuntu', sans-serif;
         height: 200px;
-        display: flex;
-        flex-direction: column;
         justify-content: center;
         padding-left: 100px;
     }
@@ -53,7 +40,7 @@
     }
 
 
-    img{
+    .card-img{
         width: 350px;
         height: 300px;
         border-radius: 10%;
@@ -65,6 +52,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-top: -30%;
     }
     .text-2{
         font-size: 50px;
@@ -74,16 +62,47 @@
     }
     .table-remontee{
         padding-left: 140px;
+        padding-right: 140px;
+
     }
     .table-piste{
         padding-left: 140px;
+        padding-right: 140px;
+        color: #0e4e36;
+    }
+    .table-piste{
+        padding-left: 140px;
+        color: #0e4e36;
     }
 
     @media only screen and (max-width: 800px){
+
+        .card-img{
+            height: 175px;
+            width: 225px;
+        }
+        #card-subtitle{
+            display: none;
+        }
+        .station-pres{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        .table-remontee{
+            padding: 5px;
+
+        }
+        .table-piste{
+            padding: 5px;
+
+        }
+
         table{
-
+            font-size: 6px;
             padding: 5px 5px;
-
         }
         th  {
             padding-right: 2.5px;
@@ -95,7 +114,15 @@
             padding-left: 2.5px;
             font-size: 15px;
         }
+        .text-2{
+            font-size: 20px;
+        }
+        .text-3{
+            font-size: 15px;
+        }
+
     }
+
 </style>
     <header >
         <nav class="navbar" >
@@ -104,14 +131,13 @@
                     <a href="#">Peak <span> </span><span>EXPLORER.</span></a>
                 </div>
                 <ul class="menu">
-                    <li><a href="{{ path('app_index') }}" class="menu-btn">Acceuil</a></li>
+                    <li><a href="{{ path('app_index') }}" class="menu-btn">acceuil</a></li>
                     <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Domaine</a></li>
                     <li><a href="{{ path('app_login') }}" class="menu-btn">login</a></li>
                     <li><a href="{{ path('app_register') }}" class="menu-btn">Register</a></li>
                     {% if user == 'ROLE_ADMIN'%}
                         <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
                     {% elseif user == 'ROLE_ASTATION'%}
-                        <li><a href="{{ path('app_Domaine') }}" class="menu-btn">Admin</a></li>
                         <li><a href="{{ path('admin_domaine') }}" class="menu-btn">Admin</a></li>
                     {% endif %}
                 </ul>
@@ -122,18 +148,32 @@
             </div>
         </nav>
     </header>
-    <br><br><br><br><br>
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+        <mask id="m">
+            <g class="cloud1">
+                <rect fill="#fff" width="100%" height="801" y="799" />
+                <image xlink:href="https://assets.codepen.io/721952/cloud1Mask.jpg" width="1200" height="800"/>
+            </g>
+        </mask>
+        <image class="sky" xlink:href="https://assets.codepen.io/721952/sky.jpg"  width="1200" height="590" />
+        <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="1200" height="800"/>
+        <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="1200" height="800"/>
+        <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="1200" height="800"/>
+        <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="1200" height="800"/>
+        <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="1200" height="800"/>
+    </svg>
     <div class="station-head">
         <div class="station-pres">
             <h1 class="text-2">Station {{ station.name }}</h1>
-            <p class="text-3"> Bienvenue sur la page de la station {{ station.name }}.</p>
+            <p class="text-3" id="card-subtitle"> Bienvenue sur la page de la station {{ station.name }}.</p>
             <p class="text-3">Description: {{ station.description }}</p>
             <p class="text-3">Location: {{ station.location }}</p>
         </div>
         <br><br><br><br>
         <div>
-            <img src="/uploads/{{ station.image }}" alt="image de la station" width="200" height="200">
+            <img src="/uploads/{{ station.image }}" alt="image de la station"  class="card-img">
         </div>
+
     </div>
 
 
